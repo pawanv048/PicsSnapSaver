@@ -1,7 +1,8 @@
 import Home from "./Home";
-import MasonryDetail from "./MasonryDetail";
-
+import DetailPic from "./DetailPic";
+import PhotoCategories from "./PhotoCategories";
 export {
   Home,
-  MasonryDetail
+  DetailPic,
+  PhotoCategories
 }
