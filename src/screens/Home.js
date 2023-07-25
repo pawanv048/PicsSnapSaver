@@ -1,15 +1,15 @@
 import React, { useState, useRef, useMemo } from 'react'
-import { StyleSheet, Text, View, ImageBackground,TouchableOpacity, Image, Dimensions, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity, Image, Dimensions, ActivityIndicator } from 'react-native'
 import GMasonryList from '../components/GMasonryList'
-import icons from '../constants/icons'
-import { dummyData } from '../../dummy'
+import icons from '../constants/icons';
 import { useNavigation } from '@react-navigation/native'
+import FastImage from 'react-native-fast-image';
 
+const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
 const MasonryCard = ({ item, style }) => {
   const navigation = useNavigation()
-  const randomBool = useMemo(() => Math.random() < 0.6, []);
-
+  const randomBool = useMemo(() => Math.random() < 0.5, []);
   // Define the onPress event handler to print the item's ID
   const handlePress = () => {
     // navigation.navigate('masdetail', { image: item.imgURL })
@@ -23,42 +23,47 @@ const MasonryCard = ({ item, style }) => {
       activeOpacity={0.5}
     >
       <View key={item.id} style={[{ marginTop: 12, flex: 1 }, style]}>
-        <Image
-          source={{ uri: item.imgURL }}
+        <FastImage
+          source={{
+            uri: BASE_URI + item,
+            priority: FastImage.priority.normal,
+          }}
           style={{
             height: randomBool ? 150 : 280,
             alignSelf: 'stretch',
             borderRadius: 10,
           }}
-          resizeMode="cover"
+          resizeMode={FastImage.resizeMode.cover}
         />
       </View>
     </TouchableOpacity>
   );
 };
 
-
 const Home = () => {
   // State to track whether new data is being loaded
+  const [data, setDate] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loadedData, setLoadedData] = useState([]); // Store the loaded data here
   const [pagination, setPagination] = useState({
-    total: dummyData.length,
+    total: data.length,
     current_page: 1,
-    last_page: Math.ceil(dummyData.length / 10), // Assuming 10 items per page
+    last_page: Math.ceil(data.length / 20), // Assuming 10 items per page
   });
-  const itemsPerPage = 10; // NUMBER OF ITEMS SHOWS PER PAGE
-  const previousScrollOffset = useRef(0);
-  // Use useRef to store accumulated data
+ 
+  // testing
 
-  // GET USER'S CURRENT PAGE DATA
-  const getCurrentPageData = () => {
-    const startIndex = (pagination.current_page - 1) * itemsPerPage;
-    console.log('Starting index=>', startIndex);
-    const endIndex = startIndex + itemsPerPage;
-    console.log('ending index=>', endIndex)
-    return dummyData.slice(startIndex, endIndex);
-  };
+
+  React.useEffect(() => {
+        fetchMore();
+      }, []);
+      const fetchMore = () => {
+        setDate(prevState => [
+          ...prevState,
+          ...Array.from({length: 20}).map((_, i) => i + 1 + prevState.length),
+        ]);
+      };
+
   const renderItem = ({ item, i }) => {
     return (
       <MasonryCard
@@ -70,35 +75,24 @@ const Home = () => {
     );
   };
 
-  const handleLoadMore = () => {
-    if (!isLoading && pagination.current_page < pagination.last_page) {
-      setIsLoading(true);
-      // Simulating server-side delay for demonstration purposes
-      setTimeout(() => {
-        setPagination((prevPagination) => ({
-          ...prevPagination,
-          current_page: prevPagination.current_page + 1,
-        }));
-        setIsLoading(false);
-      }, 1000); // 1 second delay
-    }
+ 
+
+  function RenderFooter({ load }) {
+    if (!load) return null
+    return (
+      <View
+        style={{
+          width: Dimensions.get('window').width,
+          marginTop: 10,
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    )
   }
 
-  const handleScroll = (event) => {
-    const currentScrollOffset = event.nativeEvent.contentOffset.y;
-    if (currentScrollOffset > previousScrollOffset.current && pagination.current_page > 1) {
-      const itemsToAdd = getCurrentPageData();
-      setLoadedData((prevData) => [...itemsToAdd, ...prevData]);
-      setPagination((prevPagination) => ({
-        ...prevPagination,
-        current_page: prevPagination.current_page - 1,
-      }));
-    }
-    previousScrollOffset.current = currentScrollOffset;
-  };
-
   return (
-    <View style={{ flex: 1 }}>
+    <React.Fragment>
       <ImageBackground
         blurRadius={8}
         source={icons.img}
@@ -111,26 +105,16 @@ const Home = () => {
             paddingVertical: 40,
             alignSelf: 'stretch',
             paddingBottom: 10,
+            flexGrow: 1
           }}
-          data={getCurrentPageData()}
-          onEndReached={handleLoadMore}
-          onScroll={handleScroll}
+          data={data}
+          onEndReached={fetchMore}
           renderItem={renderItem}
           numColumns={2}
+          ListFooterComponent={<RenderFooter load={isLoading} />}
         />
-        {/* Conditional rendering of ActivityIndicator */}
-        {isLoading && (
-          <View
-            style={{
-              width: Dimensions.get('window').width,
-              paddingVertical: 10,
-              alignItems: 'center',
-            }}>
-            <ActivityIndicator size="large" color="#0000ff" />
-          </View>
-        )}
       </ImageBackground>
-    </View>
+    </React.Fragment>
   )
 }
 

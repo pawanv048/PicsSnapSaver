@@ -21,7 +21,6 @@ const IMAGE_SIZE = 80;
 
 const DetailPic = () => {
   const [activeIndex, setActiveIndex] = React.useState(0)
-  console.log('indexactive=>', activeIndex);
   const topRef = useRef()
   const thumbRef = useRef()
   const SPACING = 10

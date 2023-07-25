@@ -45,6 +45,7 @@ const GMasonryList = (props) => {
     keyboardShouldPersistTaps = 'handled',
     refreshControl = true,
     refreshControlProps,
+    style
   } = props;
  
 
@@ -54,16 +55,20 @@ const GMasonryList = (props) => {
       <MasonryList
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
+        style={style}
         ListHeaderComponent={<View />}
         contentContainerStyle={{
           ...containerStyle
         }}
+        onRefresh={onRefresh}
         onEndReachedThreshold={onEndReachedThreshold}
         onEndReached={onEndReached}
         onScroll={onScroll}
         numColumns={numColumns}
         data={data}
         renderItem={renderItem}
+        ListFooterComponent={ListFooterComponent}
+        ListEmptyComponent={ListEmptyComponent}
       />
      
     </View>
