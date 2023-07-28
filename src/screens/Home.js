@@ -74,7 +74,6 @@ const Home = () => {
       />
     );
   };
-
  
 
   function RenderFooter({ load }) {

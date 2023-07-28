@@ -15,12 +15,7 @@ import { dummyData } from '../../dummy';
 import icons from '../constants/icons';
 import { useNavigation } from '@react-navigation/native';
 
-
-
-
 const GMasonryList = (props) => {
-
-
   const {
     refreshing,
     data,

@@ -8,7 +8,6 @@ import {
   Image
 } from 'react-native';
 import { GSearch } from '../components';
-import { spacing } from '../constants/theme';
 import GMasonryList from '../components/GMasonryList';
 import { dummyData } from '../../dummy';
 import { useNavigation } from '@react-navigation/native';
