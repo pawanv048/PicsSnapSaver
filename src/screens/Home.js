@@ -21,6 +21,7 @@ const MasonryCard = ({ item, style }) => {
       key={item.id}
       onPress={handlePress}
       activeOpacity={0.5}
+      
     >
       <View key={item.id} style={[{ marginTop: 12, flex: 1 }, style]}>
         <FastImage
@@ -31,7 +32,7 @@ const MasonryCard = ({ item, style }) => {
           style={{
             height: randomBool ? 150 : 280,
             alignSelf: 'stretch',
-            borderRadius: 10,
+            borderRadius: 10
           }}
           resizeMode={FastImage.resizeMode.cover}
         />
@@ -104,7 +105,8 @@ const Home = () => {
             paddingVertical: 40,
             alignSelf: 'stretch',
             paddingBottom: 10,
-            flexGrow: 1
+            flexGrow: 1,
+            
           }}
           data={data}
           onEndReached={fetchMore}

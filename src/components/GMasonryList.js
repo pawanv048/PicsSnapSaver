@@ -42,11 +42,13 @@ const GMasonryList = (props) => {
     refreshControlProps,
     style
   } = props;
- 
+
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar hidden={true} />
+      <StatusBar
+        translucent backgroundColor="transparent" 
+      />
       <MasonryList
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
@@ -65,7 +67,7 @@ const GMasonryList = (props) => {
         ListFooterComponent={ListFooterComponent}
         ListEmptyComponent={ListEmptyComponent}
       />
-     
+
     </View>
   );
 };

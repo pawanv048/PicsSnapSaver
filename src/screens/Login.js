@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, Pressable, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, Pressable, View, Text } from 'react-native';
 import { GButton, GInput, GText, } from '../components';
 import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
@@ -22,8 +22,9 @@ const Login = ({ navigation }) => {
             text='Welcome Back!'
             style={{
               alignSelf: 'center',
-              fontSize: 20,
-              fontWeight: '600',
+              fontSize: 30,
+              fontWeight: '600', 
+              color: colors.purple
             }}
           />
           <View style={{ marginVertical: sizes.radius * 2 }}>
@@ -38,15 +39,23 @@ const Login = ({ navigation }) => {
               secureTextEntry
             />
             <Pressable onPress={() => navigation.navigate('forgot')}>
-              <GText g2 text='Forgot Password?' style={{ alignSelf: 'flex-end', color: colors.purple }} />
+              <GText
+                text='Forgot Password?'
+                style={{
+                  alignSelf: 'flex-end',
+                  color: colors.purple, 
+                  fontSize: 20
+                }}
+              />
             </Pressable>
-
+                
             <GButton
               title='Login'
               onPress={() => navigation.navigate('MainStack', { screen: 'home' })}
               style={{
                 alignSelf: 'center',
-                marginTop: sizes.radius * 2
+                marginTop: sizes.radius * 2,
+                
               }}
             />
           </View>
@@ -55,6 +64,9 @@ const Login = ({ navigation }) => {
         <View style={{ flexDirection: 'row', alignSelf: 'center', position: 'absolute', bottom: 50 }}>
           <GText
             text={`Don't have an account?`}
+            style={{
+              fontSize: 20
+            }}
           />
           <TouchableOpacity onPress={() => navigation.navigate('signup')}>
             <GText
@@ -62,6 +74,7 @@ const Login = ({ navigation }) => {
               style={{
                 color: colors.purple,
                 fontWeight: '500',
+                fontSize: 20
               }}
             />
           </TouchableOpacity>

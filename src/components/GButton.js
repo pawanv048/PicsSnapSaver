@@ -44,7 +44,9 @@ var styles = StyleSheet.create({
   buttonTxt: {
     color: '#fff',
     fontSize: 14,
-    fontWeight: '400'
+    fontWeight: '300',
+    fontFamily: 'Roboto-Black',
+    // letterSpacing: 1.5
   }
 });
 

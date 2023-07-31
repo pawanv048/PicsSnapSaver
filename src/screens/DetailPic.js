@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   StatusBar,
   FlatList,
@@ -21,16 +21,41 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { dummyData } from '../../dummy';
 import icons from '../constants/icons';
 import { spacing } from '../constants/theme';
+import { apiCall, baseUrl } from '../services/api/API';
+
 
 const IMAGE_SIZE = 80;
 
-const DetailPic = () => {
+
+// MAIN
+const DetailPic = ({route}) => {
   const [activeIndex, setActiveIndex] = React.useState(0)
+  const [topics, setTopics] = useState([]);
+  // console.log("topics =>", topics)
   const topRef = useRef()
   const thumbRef = useRef()
   const SPACING = 10
 
   const { width, height } = Dimensions.get('window');
+  const { title } = route?.params || {}
+
+  useEffect(() => {
+    const url = `${baseUrl}/topics/${title}/photos?page=1&per_page=10&order_by=latest`;
+    const onSuccess = (data) => {
+      setTopics(data);
+    };
+    const onError = (error) => {
+      console.error(error);
+    };
+
+    apiCall({
+      url: url,
+      method: 'GET',
+      onSuccess: onSuccess,
+      onError: onError,
+    });
+  }, []);
+
 
   const scrollToActiveIndex = (index) => {
     setActiveIndex(index);
@@ -90,9 +115,7 @@ const DetailPic = () => {
 
     // To add the time suffix in filename
     let date = new Date();
-    // Image URL which we want to download
-    let image_URL = "https://ii1.pepperfry.com/media/catalog/product/m/o/568x625/modern-chaise-lounger-in-grey-colour-by-dreamzz-furniture-modern-chaise-lounger-in-grey-colour-by-dr-tmnirx.jpg"
-    // let image_URL = dummyData.map((item, i) => item[1].imgURL);
+    let image_URL = topics[activeIndex]?.urls?.full;
     // let image_URL = dummyData[index].imgURL;
 
     console.log('imageurl=>', image_URL)
@@ -141,7 +164,7 @@ const DetailPic = () => {
       <StatusBar hidden />
       <FlatList
         ref={topRef}
-        data={dummyData}
+        data={topics}
         bounces={false}
         keyExtractor={item => item.id.toString()}
         horizontal
@@ -151,10 +174,11 @@ const DetailPic = () => {
           scrollToActiveIndex(Math.floor(ev.nativeEvent.contentOffset.x / width))
         }}
         renderItem={({ item }) => {
+            
           return (
             <View style={{ width, height }}>
-              <Image
-                source={{ uri: item.imgURL }}
+              <FastImage
+                source={{ uri: item.urls?.full }}
                 style={[StyleSheet.absoluteFillObject]}
               />
               <TouchableOpacity
@@ -179,7 +203,7 @@ const DetailPic = () => {
       />
       <FlatList
         ref={thumbRef}
-        data={dummyData}
+        data={topics}
         keyExtractor={item => item.id.toString()}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -188,8 +212,8 @@ const DetailPic = () => {
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>
-              <Image
-                source={{ uri: item.imgURL }}
+              <FastImage
+                source={{uri: item.urls?.small }}
                 style={{
                   width: IMAGE_SIZE,
                   height: IMAGE_SIZE,

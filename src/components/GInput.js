@@ -42,7 +42,8 @@ const GInput = (props) => {
           width: 20,
           height: 20,
           marginRight: 5,
-          tintColor: '#40128B'
+          tintColor: '#40128B',
+          resizeMode: 'contain'
         }}
       />
       <TextInput
@@ -57,6 +58,8 @@ const GInput = (props) => {
           padding: Platform.OS == 'ios' ? 4 : 0,
         }}
         {...props}
+        placeholderTextColor="#ccc"
+        // placeholderStyle={{color: 'red'}}
         secureTextEntry={secureTextEntry}
       />
     </View>

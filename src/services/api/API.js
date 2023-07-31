@@ -1,6 +1,10 @@
 import axios from "axios";
 
-export const baseUrl = 'https://api.unsplash.com/';
+export const baseUrl = 'https://api.unsplash.com';
+export const accessKey = '2AcrWZYCjK2U6P0vYywu1gqzdqLtNwQORxhYX2qJnrg'; 
+
+//Access-key = 2AcrWZYCjK2U6P0vYywu1gqzdqLtNwQORxhYX2qJnrg
+//Secret key = 8EA_vooBxmYmBAImIrPJSbxI_cQVYH06o6i5-fAVpdw
 
 export const apiCall = async (props) => {
   const { url, params, method, headers, onSuccess, onError } = props
@@ -8,7 +12,7 @@ export const apiCall = async (props) => {
 
   let defaultHeaders = {
     'Content-Type': 'application/json',
-    // 'Content-Type': 'multipart/form-data',
+    'Authorization': `Client-ID ${accessKey}`,
   };
 
   try {

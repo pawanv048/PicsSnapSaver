@@ -8,7 +8,9 @@ const GText = (props) => {
       <Text
         {...componentProps}
         style={[
-          {
+          {  
+            fontFamily: 'Caveat-SemiBold',
+            // fontFamily: 'FjallaOne-Regular',
             fontSize: fontSize(props),
             color: color(props),
             textAlign: 'left'
@@ -21,7 +23,7 @@ const GText = (props) => {
 
 const fontSize = (props) => {
   if(props.g1){
-    return 17
+    return 25
   } else if(props.g2){
     return 15
   } else if(props.g3){
@@ -32,13 +34,6 @@ const fontSize = (props) => {
   return 15
 }
 
-const fontFamily = () => {
-
-}
-
-const italic = () => {
-
-}
 
 const color = (props) => {
   if (props.light){
