@@ -43,9 +43,10 @@ var styles = StyleSheet.create({
   },
   buttonTxt: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 20,
     fontWeight: '300',
-    fontFamily: 'Roboto-Black',
+    fontFamily: 'Caveat-Bold',
+    // fontFamily: 'Roboto-Black',
     // letterSpacing: 1.5
   }
 });

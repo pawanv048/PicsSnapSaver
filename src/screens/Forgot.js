@@ -13,7 +13,7 @@ const Forgot = ({navigation}) => {
           text='Reset Password'
           style={{
             alignSelf: 'center',
-            fontSize: 20,
+            fontSize: 30,
             fontWeight: '600'
           }}
         />
@@ -22,7 +22,8 @@ const Forgot = ({navigation}) => {
         <GText
           text='An email with otp will be send to you'
           style={{
-            alignSelf: 'center'
+            alignSelf: 'center',
+            fontSize: 20
           }}
         />
           <GInput
@@ -43,6 +44,9 @@ const Forgot = ({navigation}) => {
       <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 40 }}>
         <GText
           text={`Already have an account?`}
+          style={{
+            fontSize: 20
+          }}
         />
         <TouchableOpacity onPress={() => navigation.navigate('login')}>
           <GText
@@ -50,6 +54,7 @@ const Forgot = ({navigation}) => {
             style={{
               color: colors.purple,
               fontWeight: '500',
+              fontSize: 20
             }}
           />
         </TouchableOpacity>

@@ -33,7 +33,6 @@ const GMasonryList = (props) => {
     loading,
     LoadingView,
     numColumns,
-    horizontal,
     onScroll,
     removeClippedSubviews = false,
     keyExtractor,
@@ -47,27 +46,28 @@ const GMasonryList = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar
-        translucent backgroundColor="transparent" 
-      />
-      <MasonryList
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item.id}
-        style={style}
-        ListHeaderComponent={<View />}
-        contentContainerStyle={{
-          ...containerStyle
-        }}
-        onRefresh={onRefresh}
-        onEndReachedThreshold={onEndReachedThreshold}
-        onEndReached={onEndReached}
-        onScroll={onScroll}
-        numColumns={numColumns}
-        data={data}
-        renderItem={renderItem}
-        ListFooterComponent={ListFooterComponent}
-        ListEmptyComponent={ListEmptyComponent}
-      />
-
+        translucent backgroundColor="transparent"
+      />  
+        <MasonryList
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => item.id}
+          style={style}
+          ListHeaderComponent={<View />}
+          contentContainerStyle={{
+            ...containerStyle
+          }}
+          onRefresh={onRefresh}
+          onEndReachedThreshold={onEndReachedThreshold}
+          onEndReached={onEndReached}
+          onScroll={onScroll}
+          numColumns={numColumns}
+          data={data}
+          loading={loading}
+          LoadingView={LoadingView}
+          renderItem={renderItem}
+          ListFooterComponent={ListFooterComponent}
+          ListEmptyComponent={ListEmptyComponent}
+        />
     </View>
   );
 };

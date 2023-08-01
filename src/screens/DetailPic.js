@@ -16,12 +16,11 @@ import {
   Platform
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
-// const {width, height} = Dimensions.get('screen')
 import RNFetchBlob from 'rn-fetch-blob';
 import { dummyData } from '../../dummy';
 import icons from '../constants/icons';
 import { spacing } from '../constants/theme';
-import { apiCall, baseUrl } from '../services/api/API';
+import { apiCall, generatePhotosUrl } from '../services/api/API';
 
 
 const IMAGE_SIZE = 80;
@@ -31,7 +30,7 @@ const IMAGE_SIZE = 80;
 const DetailPic = ({route}) => {
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [topics, setTopics] = useState([]);
-  // console.log("topics =>", topics)
+
   const topRef = useRef()
   const thumbRef = useRef()
   const SPACING = 10
@@ -40,7 +39,9 @@ const DetailPic = ({route}) => {
   const { title } = route?.params || {}
 
   useEffect(() => {
-    const url = `${baseUrl}/topics/${title}/photos?page=1&per_page=10&order_by=latest`;
+    if(!title) return;
+    
+    const url = generatePhotosUrl(title)
     const onSuccess = (data) => {
       setTopics(data);
     };
@@ -184,6 +185,7 @@ const DetailPic = ({route}) => {
               <TouchableOpacity
                 onPress={checkPermission}
                 activeOpacity={0.5}
+                
               >
                 <Image
                   source={icons.idownload}

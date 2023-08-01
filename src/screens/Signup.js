@@ -46,7 +46,7 @@ const Signup = ({ navigation }) => {
             text='Create Account'
             style={{
               alignSelf: 'center',
-              fontSize: 20,
+              fontSize: 30,
               fontWeight: '600'
             }}
           />
@@ -78,6 +78,9 @@ const Signup = ({ navigation }) => {
         <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 20 }}>
           <GText
             text={`Already have an account?`}
+            style={{
+              fontSize: 20,
+            }}
           />
           <TouchableOpacity onPress={() => navigation.navigate('login')}>
             <GText
@@ -85,6 +88,7 @@ const Signup = ({ navigation }) => {
               style={{
                 color: colors.purple,
                 fontWeight: '500',
+                fontSize: 20,
               }}
             />
           </TouchableOpacity>

@@ -20,6 +20,7 @@
     "@shopify/flash-list": "^1.5.0",
     "axios": "^1.4.0",
     "jetifier": "^2.0.0",
+    "moti": "^0.25.3",
     "react": "18.1.0",
     "react-native": "^0.70.12",
     "react-native-fast-image": "^8.6.3",
