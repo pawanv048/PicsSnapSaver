@@ -3,7 +3,6 @@ import {
   StatusBar,
   FlatList,
   Image,
-  Animated,
   Text,
   View,
   Dimensions,
@@ -18,19 +17,20 @@ import {
 import FastImage from 'react-native-fast-image';
 import RNFetchBlob from 'rn-fetch-blob';
 import { dummyData } from '../../dummy';
+import { Spics } from '../components/Shimmers/Homecard';
 import icons from '../constants/icons';
-import { spacing } from '../constants/theme';
+import { colors, sizes, spacing } from '../constants/theme';
 import { apiCall, generatePhotosUrl } from '../services/api/API';
-
+import { useNavigation } from '@react-navigation/native';
 
 const IMAGE_SIZE = 80;
 
 
 // MAIN
-const DetailPic = ({route}) => {
+const DetailPic = ({ route }) => {
   const [activeIndex, setActiveIndex] = React.useState(0)
   const [topics, setTopics] = useState([]);
-
+  const navigation = useNavigation();
   const topRef = useRef()
   const thumbRef = useRef()
   const SPACING = 10
@@ -39,8 +39,8 @@ const DetailPic = ({route}) => {
   const { title } = route?.params || {}
 
   useEffect(() => {
-    if(!title) return;
-    
+    if (!title) return;
+
     const url = generatePhotosUrl(title)
     const onSuccess = (data) => {
       setTopics(data);
@@ -159,10 +159,11 @@ const DetailPic = ({route}) => {
 
 
 
-
+  // MAIN RENDER
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar hidden />
+
       <FlatList
         ref={topRef}
         data={topics}
@@ -175,34 +176,61 @@ const DetailPic = ({route}) => {
           scrollToActiveIndex(Math.floor(ev.nativeEvent.contentOffset.x / width))
         }}
         renderItem={({ item }) => {
-            
+
           return (
             <View style={{ width, height }}>
               <FastImage
                 source={{ uri: item.urls?.full }}
                 style={[StyleSheet.absoluteFillObject]}
               />
-              <TouchableOpacity
-                onPress={checkPermission}
-                activeOpacity={0.5}
-                
-              >
-                <Image
-                  source={icons.idownload}
-                  resizeMode={FastImage.resizeMode.contain}
+              <View style={{
+                justifyContent: 'space-between', 
+                flexDirection: 'row',
+                paddingHorizontal: sizes.radius * 1.5,
+                marginVertical: sizes.radius
+              }}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('animation')}
+                  style={{
+                    backgroundColor: colors.white,
+                    width: 40,
+                    height: 40,
+                    borderRadius: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    elevation: 10
+                  }}
+                >
+                  <Image
+                    source={icons.iback}
+                    resizeMode='contain'
+                    style={{ width: 20, height: 20 }}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={checkPermission}
+                  activeOpacity={0.5}
                   style={{
                     width: 40,
                     height: 40,
-                    position: 'absolute',
-                    top: 25,
-                    right: 25
-                  }}
-                />
-              </TouchableOpacity>
+                    elevation: 20
+                  }}>
+                  <Image
+                    resizeMode='contain'
+                    source={icons.idownload}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           )
         }}
       />
+
       <FlatList
         ref={thumbRef}
         data={topics}
@@ -215,7 +243,7 @@ const DetailPic = ({route}) => {
           return (
             <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>
               <FastImage
-                source={{uri: item.urls?.small }}
+                source={{ uri: item.urls?.small }}
                 style={{
                   width: IMAGE_SIZE,
                   height: IMAGE_SIZE,
@@ -233,8 +261,6 @@ const DetailPic = ({route}) => {
   );
 };
 
-export default DetailPic
-
-
+export default DetailPic;
 
 

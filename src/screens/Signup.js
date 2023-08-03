@@ -1,18 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import { StyleSheet, TouchableOpacity, View, ScrollView } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Image, ToastAndroid } from 'react-native';
 import { GButton, GInput, GText } from '../components';
 import GSocialButton from '../components/GSocialButton';
 import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import { CreateAccountWithEmailAndPassword } from '../utils/authUtils';
 
 const Signup = ({ navigation }) => {
+
+const [name, setName] = useState('');
+// console.log('Name:', name)
+const [email, setEmail] = useState('') 
+// console.log('email:', email)
+const [password, setPassword] = useState('')
+// console.log('password:', password)
+const [showErrors, setShowErrors] = useState(false)
+const [error, setError] = useState('')
 
   useEffect(() => {
     GoogleSignin.configure()
   }, [])
-
 
   // Somewhere in your code
   signIn = async () => {
@@ -38,10 +47,63 @@ const Signup = ({ navigation }) => {
     }
   };
 
+  const getErrors = (name, email, password) => {
+    const error = {}
+    if(!name){
+      error.name = 'Please Enter Name';
+    }else if(name.length < 3){
+      error.name = 'Please Enter AtLeast 3 Character'
+    }
+
+    if(!email){
+      error.email = 'Please Enter Email';
+    }else if(!email.includes("@") || !email.includes('.com')){
+      error.email = 'Please Enter Valid Email'
+    }
+
+    if(!password){
+      error.password = 'Please Enter Password'
+    } else if(password.length < 6){
+      error.password = 'Please Enter AtLeast 8 Character AlphaNumaric'
+    }
+
+    return error;
+  }
+ 
+  const handleRegister = () => {
+    const error = getErrors(name, email, password)
+
+    if (Object.keys(error).length > 0) {
+      setShowErrors(true)
+      setError(showErrors && error)
+      console.log(error)
+    } else {
+      setError({})
+      setShowErrors(false)
+      handleSignIn(email, password)
+    }
+  }
+
+  const handleSignIn = (email, password) => {
+    CreateAccountWithEmailAndPassword({email, password}).then(() => {
+      ToastAndroid.show("Account Created", ToastAndroid.SHORT)
+    }).catch(error => {
+      if(error.code === 'auth/email-already-in-use'){
+        return setError({email: 'Email already in use'})
+      }
+      if(error.code === 'auth/invalid-email'){
+        return setError({email: 'Invalid Email'})
+      }
+      setError({})
+      setShowErrors(false)
+      console.log(error)
+    })
+  }
+
   return (
-    <KeyboardAwareScrollView>
+    <KeyboardAvoidingWrapper>
       <View style={styles.loginContainer}>
-        <View style={{ marginTop: '25%', }}>
+        <View style={{ marginTop: '20%', }}>
           <GText
             text='Create Account'
             style={{
@@ -53,20 +115,38 @@ const Signup = ({ navigation }) => {
           <View style={{ marginVertical: sizes.radius * 2 }}>
             <GInput
               source={icons.iuser}
+              value={name}
+              onChangeText={(e) => setName(e)}
               placeholder='Name'
             />
+            {error.name && (
+              <GText text={error.name} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+            )}
             <GInput
               source={icons.iemail}
+              value={email}
               placeholder='Email'
-              secureTextEntry
+              keyboardType='email-address'
+              onChangeText={(e) => setEmail(e)}
+
             />
+            {error.email && (
+              <GText text={error.email} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+            )}
             <GInput
               source={icons.ilock}
               placeholder='Password'
               secureTextEntry
+              value={password}
+              onChangeText={(e) => setPassword(e)}
+              maxLength={10}
             />
+            {error.password && (
+              <GText text={error.password} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+            )}
             <GButton
               title='Sign up'
+              onPress={handleRegister}
               style={{
                 alignSelf: 'center',
                 marginTop: sizes.radius * 2
@@ -75,7 +155,7 @@ const Signup = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 20 }}>
+        <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 40 }}>
           <GText
             text={`Already have an account?`}
             style={{
@@ -95,7 +175,7 @@ const Signup = ({ navigation }) => {
         </View>
         <GSocialButton onPress={signIn} />
       </View>
-    </KeyboardAwareScrollView>
+    </KeyboardAvoidingWrapper>
   )
 }
 

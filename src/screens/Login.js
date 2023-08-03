@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, TouchableOpacity, Pressable, View, Text } from 'react-native';
 import { GButton, GInput, GText, } from '../components';
 import icons from '../constants/icons';
@@ -6,6 +6,49 @@ import { sizes, colors } from '../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Login = ({ navigation }) => {
+
+
+const [email, setEmail] = useState('') 
+// console.log('email:', email)
+const [password, setPassword] = useState('')
+// console.log('password:', password)
+const [showErrors, setShowErrors] = useState(false)
+const [error, setError] = useState('')
+
+  const getErrors = (email, password) => {
+    const error = {}
+
+    if(!email){
+      error.email = 'Please Enter Email';
+    }else if(!email.includes("@") || !email.includes('.com')){
+      error.email = 'Please Enter Valid Email'
+    }
+
+    if(!password){
+      error.password = 'Please Enter Password'
+    } else if(password.length < 6){
+      error.password = 'Please Enter AtLeast 8 Character AlphaNumaric'
+    }
+
+    return error;
+  }
+ 
+  const handleLogin = () => {
+    const error = getErrors(email, password)
+
+    if (Object.keys(error).length > 0) {
+      setShowErrors(true)
+      setError(showErrors && error)
+      console.log(error)
+    } else {
+      console.log('Login')
+      setError({})
+      setShowErrors(false)
+      navigation.navigate('MainStack', { screen: 'home' })
+    }
+  }
+
+
   return (
     <KeyboardAwareScrollView
       contentInsetAdjustmentBehavior='automatic'
@@ -32,13 +75,25 @@ const Login = ({ navigation }) => {
               source={icons.iuser}
               placeholder='Email'
               autoFocus
+              value={email}
+              onChangeText={e => setEmail(e)}
             />
+            {error.email && (
+              <GText text={error.email} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+            )}
             <GInput
               source={icons.ilock}
               placeholder='Password'
               secureTextEntry
+              value={password}
+              onChangeText={e => setPassword(e)}
+              maxLength={10}
             />
+            {error.password && (
+              <GText text={error.password} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+            )}
             <Pressable onPress={() => navigation.navigate('forgot')}>
+            {/* animation  forgot*/}
               <GText
                 text='Forgot Password?'
                 style={{
@@ -51,7 +106,7 @@ const Login = ({ navigation }) => {
                 
             <GButton
               title='Login'
-              onPress={() => navigation.navigate('MainStack', { screen: 'home' })}
+              onPress={handleLogin}
               style={{
                 alignSelf: 'center',
                 marginTop: sizes.radius * 2,

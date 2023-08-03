@@ -1,18 +1,26 @@
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
+import { sizes } from '../constants/theme';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 
 const GSocialButton = ({onPress}) => {
   return (
-    <View style={styles.bottomContent}>
-      <TouchableOpacity style={styles.googleButton} onPress={onPress}>
+    <View style={{marginHorizontal: sizes.radius * 4}}>
+      <TouchableOpacity onPress={onPress}>
+      <LinearGradient
+        start={{ x: 0, y: 1 }} end={{ x: 1, y: 0 }}
+        colors={['#221087', '#4F10B2', '#7B10D4']}
+        style={styles.googleButton}
+      >
         <Image
           style={styles.googleIcon}
           source={{
             uri: "https://i.ibb.co/j82DCcR/search.png",
           }}
         />
-        <Text style={styles.googleButtonText}>Sign in with Google</Text>
+        </LinearGradient>
       </TouchableOpacity>
     </View>
   )
@@ -21,19 +29,14 @@ const GSocialButton = ({onPress}) => {
 export default GSocialButton
 
 const styles = StyleSheet.create({
-  bottomContent: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-   },
+  
    googleButton: {
-    backgroundColor: "grey",
-    borderRadius: 4,
-    paddingHorizontal: 25,
-    paddingVertical: 10,
-    flexDirection: 'row',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    alignSelf: 'center'
    },
    googleButtonText: {
     marginLeft: 16,
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: '500'
    },
    googleIcon: {
-    height: 17,
-    width: 17
+    height: 20,
+    width: 20
    }
 })

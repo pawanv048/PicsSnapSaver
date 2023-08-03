@@ -21,8 +21,7 @@ const GButton = (props) => {
       <LinearGradient
         start={{ x: 0, y: 1 }} end={{ x: 1, y: 0 }}
         colors={['#221087', '#4F10B2', '#7B10D4']}
-        style={[styles.buttonContainer]}
-      >
+        style={[styles.buttonContainer]}>
         <Text style={styles.buttonTxt}>{title}</Text>
       </LinearGradient>
     </TouchableOpacity>

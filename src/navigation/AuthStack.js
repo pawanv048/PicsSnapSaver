@@ -11,18 +11,19 @@ export function AuthStack() {
       <Stack.Screen
         name='login'
         component={Login}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name='signup'
         component={Signup}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name='forgot'
         component={Forgot}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
+      
     </Stack.Navigator>
   )
 }

@@ -9,7 +9,8 @@ export const colors = {
   light: '#fbfbfb',
   white: '#fff',
   black: '#000',
-  purple: '#40128B'
+  purple: '#40128B',
+  warning: '#FF0000'
 };
 
 export const shadow = {

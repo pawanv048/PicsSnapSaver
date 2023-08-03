@@ -7,35 +7,35 @@ import GMasonryList from '../GMasonryList'
 const Shimmer = createShimmerPlaceholder(LinearGradient);
 
 
-const HomeCards = () => {
+export const Spics = () => {
   return (
-    <React.Fragment>
-
-    </React.Fragment>
+    <Shimmer
+      shimmerColors={['#FFFFFF', '#F5F5F5', '#FEFBF6']}
+      style={{
+        height: sizes.height,
+        width: sizes.width,
+        
+      }} />
   )
 }
 
 
-const Homecard = () => {
+export const Homecard = () => {
   return (
-
-
-
-
     <GMasonryList
       data={[1, 1, 1, 1]}
       renderItem={({ item }) => {
         return (
-          
-            <Shimmer
-              shimmerColors={['#151515', '#2D2D2D', '#161616']}
-              style={{
-                height: 280,
-                width: '90%',
-                marginBottom: 10,
-                borderRadius: 10,
-              }} />
-         
+
+          <Shimmer
+            shimmerColors={['#151515', '#2D2D2D', '#161616']}
+            style={{
+              height: 280,
+              width: '90%',
+              marginBottom: 10,
+              borderRadius: 10,
+            }} />
+
         )
       }}
 
@@ -43,7 +43,3 @@ const Homecard = () => {
 
   )
 }
-
-export default Homecard
-
-const styles = StyleSheet.create({})

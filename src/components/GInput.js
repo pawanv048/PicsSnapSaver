@@ -3,6 +3,7 @@ import { Image, Text, View, TextInput, Keyboard } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { sizes } from '../constants/theme';
 const GInput = (props) => {
+  
   const {
     value,
     onChangeText,
@@ -10,7 +11,8 @@ const GInput = (props) => {
     source,
     secureTextEntry,
     keyboardType,
-    autoFocus
+    autoFocus,
+    maxLength
   } = props
 
   const inputRef = useRef();
@@ -52,10 +54,11 @@ const GInput = (props) => {
         placeholder={placeholder}
         keyboardType={keyboardType}
         spellCheck={false}
+        maxLength={maxLength}
         autoFocus={autoFocus}
         style={{
           height: 40,
-          padding: Platform.OS == 'ios' ? 4 : 0,
+          flex: 1
         }}
         {...props}
         placeholderTextColor="#ccc"

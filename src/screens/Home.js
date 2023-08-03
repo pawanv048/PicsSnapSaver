@@ -21,7 +21,7 @@ import { BASE_URI } from '../services/api/API';
 
 const Home = () => {
   // State to track whether new data is being loaded
-  const [data, setDate] = useState([]);
+  const [data, setData] = useState([]);
 
   
   // LOADING MORE PHOTOS
@@ -30,7 +30,7 @@ const Home = () => {
   }, []);
 
   const fetchMore = () => {
-    setDate(prevState => [
+    setData(prevState => [
       ...prevState,
       ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
     ]);
