@@ -1,11 +1,22 @@
 import axios from "axios";
 
 export const baseUrl = 'https://api.unsplash.com';
-export const accessKey = '2AcrWZYCjK2U6P0vYywu1gqzdqLtNwQORxhYX2qJnrg'; 
+
+// PRODUCTION KEYS
+// export const accessKey = '2AcrWZYCjK2U6P0vYywu1gqzdqLtNwQORxhYX2qJnrg'; 
+// export const BASE_URI = 'https://source.unsplash.com/random?sig=';
+
+
+
+// TESTING KEYS
+export const accessKey = 'OoqaimbJkm_RVg13Y3XjSX49clHYIzAXqK1bPfV5qX0'; 
 export const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
-//Access-key = 2AcrWZYCjK2U6P0vYywu1gqzdqLtNwQORxhYX2qJnrg
-//Secret key = 8EA_vooBxmYmBAImIrPJSbxI_cQVYH06o6i5-fAVpdw
+//Access-key = OoqaimbJkm_RVg13Y3XjSX49clHYIzAXqK1bPfV5qX0
+//Secret key = 3bX31mpv72Wq_nmITnXraeJarlXuTJ75wxY8w6S-kaU
+
+// TESTING KEYS
+
 
 export const generateCategoriesUrl = () => {
   return `${baseUrl}/topics?&page=1&order_by=latest&per_page=21`;

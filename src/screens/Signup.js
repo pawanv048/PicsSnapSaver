@@ -57,14 +57,14 @@ const [error, setError] = useState('')
 
     if(!email){
       error.email = 'Please Enter Email';
-    }else if(!email.includes("@") || !email.includes('.com')){
+    }else if(!email.includes("@") || !email.includes('.com') || !email.includes('.com')){
       error.email = 'Please Enter Valid Email'
     }
 
     if(!password){
       error.password = 'Please Enter Password'
     } else if(password.length < 6){
-      error.password = 'Please Enter AtLeast 8 Character AlphaNumaric'
+      error.password = 'Please Enter AtLeast 8 Characters'
     }
 
     return error;

@@ -1,13 +1,56 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, View, KeyboardAvoidingView, ScrollView } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, TouchableOpacity, View, ToastAndroid } from 'react-native';
 import { GButton, GInput, GText } from '../components';
 import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import { ResetPassword } from '../utils/authUtils';
 
 
 const Forgot = ({ navigation }) => {
+
+  const [email, setEmail] = useState('') 
+// console.log('email:', email)
+
+const [showErrors, setShowErrors] = useState(false)
+const [error, setError] = useState('')
+
+  const getErrors = (email) => {
+    const error = {}
+
+    if(!email){
+      error.email = 'Please Enter Email';
+    }else if(!email.includes("@") || !email.includes('gmail') || !email.includes('.com')){
+      error.email = 'Please Enter Valid Email'
+    }
+
+    return error;
+  }
+ 
+  const handleRegister = () => {
+    const error = getErrors(email)
+    if (Object.keys(error).length > 0) {
+      setShowErrors(true)
+      setError(showErrors && error)
+      console.log(error)
+    } else {
+      setError({})
+      setShowErrors(false)
+      handleForgotPassword({email: email})
+      //navigation.navigate('MainStack', { screen: 'home' })
+    }
+  }
+
+  const handleForgotPassword = ({email}) => {
+    ResetPassword({email}).then(() => {
+      ToastAndroid.show("Reset Link send on you mail", ToastAndroid.SHORT)
+    }).catch((e) =>{
+      console.log(e)
+    })
+  }
+
+
+
   return (
     <KeyboardAvoidingWrapper>
       <View style={styles.loginContainer}>
@@ -28,10 +71,15 @@ const Forgot = ({ navigation }) => {
           <GInput
             source={icons.iemail}
             placeholder='Email'
-            secureTextEntry
+            value={email}
+            onChangeText={e => setEmail(e)}
           />
+          {error.email && (
+              <GText text={error.email} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+            )}
           <GButton
             title='Reset'
+            onPress={handleRegister}
             style={{
               alignSelf: 'center',
               marginTop: sizes.radius * 2

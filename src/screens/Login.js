@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { StyleSheet, TouchableOpacity, Pressable, View, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Pressable, View, ToastAndroid } from 'react-native';
 import { GButton, GInput, GText, } from '../components';
 import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { LoginWithEmailAndPassword } from '../utils/authUtils';
 
 const Login = ({ navigation }) => {
 
@@ -20,20 +21,20 @@ const [error, setError] = useState('')
 
     if(!email){
       error.email = 'Please Enter Email';
-    }else if(!email.includes("@") || !email.includes('.com')){
+    }else if(!email.includes("@") || !email.includes('gmail') || !email.includes('.com')){
       error.email = 'Please Enter Valid Email'
     }
 
     if(!password){
       error.password = 'Please Enter Password'
-    } else if(password.length < 6){
-      error.password = 'Please Enter AtLeast 8 Character AlphaNumaric'
+    } else if(password.length < 5){
+      error.password = 'Please Enter AtLeast 8 Characters'
     }
 
     return error;
   }
  
-  const handleLogin = () => {
+  const handleRegister = () => {
     const error = getErrors(email, password)
 
     if (Object.keys(error).length > 0) {
@@ -44,10 +45,25 @@ const [error, setError] = useState('')
       console.log('Login')
       setError({})
       setShowErrors(false)
-      navigation.navigate('MainStack', { screen: 'home' })
+      handleLogin({email: email, password: password})
+      //navigation.navigate('MainStack', { screen: 'home' })
     }
   }
 
+  const handleLogin = ({email, password}) => {
+    LoginWithEmailAndPassword({email, password}).then(() => {
+      ToastAndroid.show("Logged In", ToastAndroid.SHORT)
+    }).catch((e) =>{
+      if(e.code === 'auth/user-not-found'){
+        setError({email: 'User not found'})
+      }
+      if(e.code === 'auth/wrong-password'){
+        setError({password: 'wrong password'})
+      }
+    })
+  }
+
+ 
 
   return (
     <KeyboardAwareScrollView
@@ -106,7 +122,7 @@ const [error, setError] = useState('')
                 
             <GButton
               title='Login'
-              onPress={handleLogin}
+              onPress={handleRegister}
               style={{
                 alignSelf: 'center',
                 marginTop: sizes.radius * 2,

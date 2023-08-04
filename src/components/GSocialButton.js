@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { sizes } from '../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
+import icons from '../constants/icons';
 
 
 
@@ -16,9 +17,7 @@ const GSocialButton = ({onPress}) => {
       >
         <Image
           style={styles.googleIcon}
-          source={{
-            uri: "https://i.ibb.co/j82DCcR/search.png",
-          }}
+          source={icons.iGoogle}
         />
         </LinearGradient>
       </TouchableOpacity>
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     fontWeight: '500'
    },
    googleIcon: {
-    height: 20,
-    width: 20
+    height: 25,
+    width: 25
    }
 })
