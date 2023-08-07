@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal, StyleSheet, Image, View, Pressable, Alert, Text, ScrollView } from 'react-native';
 import { signOutUser } from '../utils/authUtils';
 import LinearGradient from 'react-native-linear-gradient';
@@ -7,12 +7,27 @@ import { GButton, GText } from '../components';
 import { colors, sizes } from '../constants/theme';
 import { Terms } from '../constants/strings';
 import { useUserDetail } from '../helper/userDetail';
-
+import AsyncStorage from '../utils/storage';
 
 const Profile = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [accepted, setAccepted] = useState(false);
-  const {name, email} = useUserDetail()
+  const {name, email, setName, setEmail} = useUserDetail()
+
+
+  useEffect(() => {
+    // Fetch the name and email from AsyncStorage and update the state
+    AsyncStorage.get('name').then((name) => {
+      if (name) {
+        setName(name);
+      }
+    });
+    AsyncStorage.get('email').then((email) => {
+      if (email) {
+        setEmail(email);
+      }
+    });
+  }, []);
 
   // Lougout function
   const handleLogout = () => {

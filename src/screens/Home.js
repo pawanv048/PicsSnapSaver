@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  ActivityIndicator
+  ActivityIndicator,
+  ToastAndroid
 } from 'react-native';
 import GMasonryList from '../components/GMasonryList';
 import icons from '../constants/icons';
 import { useNavigation } from '@react-navigation/native'
 import FastImage from 'react-native-fast-image';
-import Homecard from '../components/Shimmers/Homecard';
 import GLoading from '../components/GLoading';
 import { BASE_URI } from '../services/api/API';
 
@@ -22,10 +22,12 @@ import { BASE_URI } from '../services/api/API';
 const Home = () => {
   // State to track whether new data is being loaded
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false)
 
-  
   // LOADING MORE PHOTOS
   React.useEffect(() => {
+    ToastAndroid.show('Discover Beautiful Random Images', 500, ToastAndroid.SHORT)
+    setLoading(true)
     fetchMore();
   }, []);
 
@@ -48,17 +50,7 @@ const Home = () => {
     );
   };
 
-
-  function emptyList({ load }) {
-    if (!load) return null
-    return (
-      <View style={{ alignSelf: 'center', flex: 1 }}>
-        <GLoading />
-      </View>
-    )
-  }
-
-// MAIN
+  // MAIN
   return (
     <React.Fragment>
       <ImageBackground
@@ -69,7 +61,6 @@ const Home = () => {
           flex: 1
         }}
       >
-
         <GMasonryList
           containerStyle={{
             paddingHorizontal: 10,
@@ -83,6 +74,7 @@ const Home = () => {
           renderItem={renderItem}
           numColumns={2}
         />
+        {/* <GLoading size={80}/> */}
       </ImageBackground>
     </React.Fragment>
   )

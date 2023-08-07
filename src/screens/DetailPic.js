@@ -179,15 +179,17 @@ const DetailPic = ({ route }) => {
           return (
             <View style={{ width, height }}>
               <FastImage
-                source={{ uri: item.urls?.full }}
+                source={{ uri: item?.urls?.full, priority: FastImage.priority.normal, }}
                 style={[StyleSheet.absoluteFillObject]}
+                resizeMode={FastImage.resizeMode.cover}
               />
-              <View style={{
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                paddingHorizontal: sizes.radius * 1.2,
-                marginVertical: sizes.radius
-              }}>
+              <View
+                style={{
+                  justifyContent: 'space-between',
+                  flexDirection: 'row',
+                  paddingHorizontal: sizes.radius * 1.2,
+                  marginVertical: sizes.radius
+                }}>
                 <TouchableOpacity
                   onPress={() => navigation.goBack()}
                   style={{
@@ -206,7 +208,7 @@ const DetailPic = ({ route }) => {
                     style={{ width: 20, height: 20 }}
                   />
                 </TouchableOpacity>
-                <View style={{alignItems: 'center'}}>
+                <View style={{ alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={() => navigation.navigate('Profile')}
                     activeOpacity={0.5}
@@ -222,7 +224,6 @@ const DetailPic = ({ route }) => {
                       style={{
                         width: 40,
                         height: 40,
-                        
                       }}
                     />
                   </TouchableOpacity>
@@ -240,8 +241,7 @@ const DetailPic = ({ route }) => {
                       source={icons.idownload}
                       style={{
                         width: 40,
-                        height: 40,
-
+                        height: 40
                       }}
                     />
                   </TouchableOpacity>

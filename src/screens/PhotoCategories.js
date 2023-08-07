@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Image,
   FlatList,
-  StatusBar
+  StatusBar,
+  ImageBackground
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
@@ -16,6 +17,7 @@ import GMasonryList from '../components/GMasonryList';
 import { apiCall, generateCategoriesUrl } from '../services/api/API';
 import { colors, sizes } from '../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
+import icons from '../constants/icons';
 
 
 const PhotoCategories = () => {
@@ -39,19 +41,27 @@ const PhotoCategories = () => {
   }, []);
 
   const renderItem = ({ item }) => {
-    return <MasonryCard item={item} style={{ marginLeft: 12,  }} />
+    return <MasonryCard item={item} style={{ marginLeft: 12, }} />
   };
 
   // MAIN RENDER 
   return (
-    <View style={{ flex: 1, paddingTop: sizes.radius * 3, backgroundColor: 'white' }}>
+    <ImageBackground
+      blurRadius={8}
+      source={icons.img}
+      resizeMode="cover"
+      style={{
+        flex: 1,
+        paddingTop: sizes.radius * 3
+      }}
+    >
       <GMasonryList
         containerStyle={{ paddingRight: 12 }}
         data={topics}
         renderItem={renderItem}
         numColumns={3}
       />
-    </View>
+    </ImageBackground>
   )
 }
 

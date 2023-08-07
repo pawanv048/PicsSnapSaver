@@ -8,17 +8,18 @@ import { sizes, colors } from '../constants/theme';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import { CreateAccountWithEmailAndPassword } from '../utils/authUtils';
 import { useUserDetail } from '../helper/userDetail';
+import AsyncStorage from '../utils/storage';
 
 const Signup = ({ navigation }) => {
 
-// const [name, setName] = useState('')
-// const [email, setEmail] = useState('')
+  // const [name, setName] = useState('')
+  // const [email, setEmail] = useState('')
 
-const {name, email, setEmail, setName} = useUserDetail();
-console.log('details =>', name, email)
-const [password, setPassword] = useState('')
-const [showErrors, setShowErrors] = useState(false)
-const [error, setError] = useState('')
+  const { name, email, setEmail, setName } = useUserDetail();
+  console.log('details =>', name, email)
+  const [password, setPassword] = useState('')
+  const [showErrors, setShowErrors] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     GoogleSignin.configure()
@@ -50,27 +51,27 @@ const [error, setError] = useState('')
 
   const getErrors = (name, email, password) => {
     const error = {}
-    if(!name){
+    if (!name) {
       error.name = 'Please Enter Name';
-    }else if(name.length < 3){
+    } else if (name.length < 3) {
       error.name = 'Please Enter AtLeast 3 Character'
     }
 
-    if(!email){
+    if (!email) {
       error.email = 'Please Enter Email';
-    }else if(!email.includes("@") || !email.includes('.com') || !email.includes('.com')){
+    } else if (!email.includes("@") || !email.includes('.com') || !email.includes('.com')) {
       error.email = 'Please Enter Valid Email'
     }
 
-    if(!password){
+    if (!password) {
       error.password = 'Please Enter Password'
-    } else if(password.length < 6){
+    } else if (password.length < 6) {
       error.password = 'Please Enter AtLeast 8 Characters'
     }
 
     return error;
   }
- 
+
   const handleRegister = () => {
     const error = getErrors(name, email, password)
 
@@ -81,19 +82,22 @@ const [error, setError] = useState('')
     } else {
       setError({})
       setShowErrors(false)
+      // Store name and email in AsyncStorage before calling handleSignIn
+      AsyncStorage.set('name', name);
+      AsyncStorage.set('email', email);
       handleSignIn(email, password)
     }
   }
 
   const handleSignIn = (email, password) => {
-    CreateAccountWithEmailAndPassword({email, password}).then(() => {
+    CreateAccountWithEmailAndPassword({ email, password }).then(() => {
       ToastAndroid.show("Account Created", ToastAndroid.SHORT)
     }).catch(error => {
-      if(error.code === 'auth/email-already-in-use'){
-        return setError({email: 'Email already in use'})
+      if (error.code === 'auth/email-already-in-use') {
+        return setError({ email: 'Email already in use' })
       }
-      if(error.code === 'auth/invalid-email'){
-        return setError({email: 'Invalid Email'})
+      if (error.code === 'auth/invalid-email') {
+        return setError({ email: 'Invalid Email' })
       }
       setError({})
       setShowErrors(false)
@@ -121,7 +125,7 @@ const [error, setError] = useState('')
               placeholder='Name'
             />
             {error.name && (
-              <GText text={error.name} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+              <GText text={error.name} style={{ color: colors.warning, marginLeft: sizes.radius }} />
             )}
             <GInput
               source={icons.iemail}
@@ -132,7 +136,7 @@ const [error, setError] = useState('')
 
             />
             {error.email && (
-              <GText text={error.email} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+              <GText text={error.email} style={{ color: colors.warning, marginLeft: sizes.radius }} />
             )}
             <GInput
               source={icons.ilock}
@@ -143,7 +147,7 @@ const [error, setError] = useState('')
               maxLength={10}
             />
             {error.password && (
-              <GText text={error.password} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+              <GText text={error.password} style={{ color: colors.warning, marginLeft: sizes.radius }} />
             )}
             <GButton
               title='Sign up'
