@@ -7,15 +7,16 @@ import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import { CreateAccountWithEmailAndPassword } from '../utils/authUtils';
+import { useUserDetail } from '../helper/userDetail';
 
 const Signup = ({ navigation }) => {
 
-const [name, setName] = useState('');
-// console.log('Name:', name)
-const [email, setEmail] = useState('') 
-// console.log('email:', email)
+// const [name, setName] = useState('')
+// const [email, setEmail] = useState('')
+
+const {name, email, setEmail, setName} = useUserDetail();
+console.log('details =>', name, email)
 const [password, setPassword] = useState('')
-// console.log('password:', password)
 const [showErrors, setShowErrors] = useState(false)
 const [error, setError] = useState('')
 
@@ -115,7 +116,7 @@ const [error, setError] = useState('')
           <View style={{ marginVertical: sizes.radius * 2 }}>
             <GInput
               source={icons.iuser}
-              value={name}
+              // value={name}
               onChangeText={(e) => setName(e)}
               placeholder='Name'
             />
@@ -124,7 +125,7 @@ const [error, setError] = useState('')
             )}
             <GInput
               source={icons.iemail}
-              value={email}
+              // value={email}
               placeholder='Email'
               keyboardType='email-address'
               onChangeText={(e) => setEmail(e)}
@@ -137,7 +138,7 @@ const [error, setError] = useState('')
               source={icons.ilock}
               placeholder='Password'
               secureTextEntry
-              value={password}
+              // value={password}
               onChangeText={(e) => setPassword(e)}
               maxLength={10}
             />

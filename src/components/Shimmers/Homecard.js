@@ -14,7 +14,6 @@ export const Spics = () => {
       style={{
         height: sizes.height,
         width: sizes.width,
-        
       }} />
   )
 }
@@ -26,7 +25,6 @@ export const Homecard = () => {
       data={[1, 1, 1, 1]}
       renderItem={({ item }) => {
         return (
-
           <Shimmer
             shimmerColors={['#151515', '#2D2D2D', '#161616']}
             style={{
@@ -35,10 +33,8 @@ export const Homecard = () => {
               marginBottom: 10,
               borderRadius: 10,
             }} />
-
         )
       }}
-
     />
 
   )

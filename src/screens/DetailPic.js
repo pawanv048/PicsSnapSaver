@@ -163,7 +163,6 @@ const DetailPic = ({ route }) => {
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <StatusBar hidden />
-
       <FlatList
         ref={topRef}
         data={topics}
@@ -184,18 +183,18 @@ const DetailPic = ({ route }) => {
                 style={[StyleSheet.absoluteFillObject]}
               />
               <View style={{
-                justifyContent: 'space-between', 
+                justifyContent: 'space-between',
                 flexDirection: 'row',
-                paddingHorizontal: sizes.radius * 1.5,
+                paddingHorizontal: sizes.radius * 1.2,
                 marginVertical: sizes.radius
               }}>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('animation')}
+                  onPress={() => navigation.goBack()}
                   style={{
                     backgroundColor: colors.white,
                     width: 40,
                     height: 40,
-                    borderRadius: 5,
+                    borderRadius: 20,
                     justifyContent: 'center',
                     alignItems: 'center',
                     elevation: 10
@@ -207,24 +206,46 @@ const DetailPic = ({ route }) => {
                     style={{ width: 20, height: 20 }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={checkPermission}
-                  activeOpacity={0.5}
-                  style={{
-                    width: 40,
-                    height: 40,
-                    elevation: 20
-                  }}>
-                  <Image
-                    resizeMode='contain'
-                    source={icons.idownload}
+                <View style={{alignItems: 'center'}}>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Profile')}
+                    activeOpacity={0.5}
                     style={{
                       width: 40,
                       height: 40,
-                      
-                    }}
-                  />
-                </TouchableOpacity>
+                      elevation: 20,
+                      marginBottom: 20
+                    }}>
+                    <Image
+                      resizeMode='contain'
+                      source={icons.iProfile}
+                      style={{
+                        width: 40,
+                        height: 40,
+                        
+                      }}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={checkPermission}
+                    activeOpacity={0.5}
+                    style={{
+                      width: 40,
+                      height: 40,
+                      elevation: 20,
+                      marginHorizontal: sizes.radius
+                    }}>
+                    <Image
+                      resizeMode='contain'
+                      source={icons.idownload}
+                      style={{
+                        width: 40,
+                        height: 40,
+
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           )

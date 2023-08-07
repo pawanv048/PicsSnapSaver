@@ -4,7 +4,7 @@ import PhotoCategories from "./PhotoCategories";
 import Login from "./Login";
 import Signup from "./Signup";
 import Forgot from "./Forgot";
-import DAnimation from "./DAnimation";
+import Profile from "./Profile";
 export {
   Home,
   DetailPic,
@@ -12,5 +12,5 @@ export {
   Login,
   Signup,
   Forgot,
-  DAnimation
+  Profile
 }

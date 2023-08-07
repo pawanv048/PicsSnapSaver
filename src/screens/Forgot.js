@@ -20,7 +20,7 @@ const [error, setError] = useState('')
 
     if(!email){
       error.email = 'Please Enter Email';
-    }else if(!email.includes("@") || !email.includes('gmail') || !email.includes('.com')){
+    }else if(!email.includes("@") || !email.includes('.com')){
       error.email = 'Please Enter Valid Email'
     }
 

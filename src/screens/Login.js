@@ -5,11 +5,11 @@ import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LoginWithEmailAndPassword } from '../utils/authUtils';
-
+import { useUserDetail } from '../helper/userDetail';
 const Login = ({ navigation }) => {
 
 
-const [email, setEmail] = useState('') 
+const {email, setEmail} = useUserDetail()
 // console.log('email:', email)
 const [password, setPassword] = useState('')
 // console.log('password:', password)
@@ -21,7 +21,7 @@ const [error, setError] = useState('')
 
     if(!email){
       error.email = 'Please Enter Email';
-    }else if(!email.includes("@") || !email.includes('gmail') || !email.includes('.com')){
+    }else if(!email.includes("@") || !email.includes('.com')){
       error.email = 'Please Enter Valid Email'
     }
 
@@ -91,7 +91,7 @@ const [error, setError] = useState('')
               source={icons.iuser}
               placeholder='Email'
               autoFocus
-              value={email}
+              // value={email}
               onChangeText={e => setEmail(e)}
             />
             {error.email && (
@@ -101,7 +101,7 @@ const [error, setError] = useState('')
               source={icons.ilock}
               placeholder='Password'
               secureTextEntry
-              value={password}
+              // value={password}
               onChangeText={e => setPassword(e)}
               maxLength={10}
             />

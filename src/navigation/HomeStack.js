@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Home, DetailPic, PhotoCategories,DAnimation } from '../screens';
+import { Home, DetailPic, PhotoCategories,Profile } from '../screens';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -11,8 +11,8 @@ export function HomeStack() {
       <Stack.Screen name="detail" component={DetailPic} />
       <Stack.Screen name="categories" component={PhotoCategories} />
       <Stack.Screen
-        name='animation'
-        component={DAnimation}
+        name='Profile'
+        component={Profile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
