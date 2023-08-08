@@ -10,9 +10,9 @@ const RootNavigator = () => {
   const Root = createStackNavigator();
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
-  console.log('initializing=>', initializing)
+  // console.log('initializing=>', initializing)
   const [user, setUser] = useState();
-  console.log('user=>', user)
+  // console.log('user=>', user)
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);

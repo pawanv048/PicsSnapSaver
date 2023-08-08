@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 
 const DetailContext = createContext();
 

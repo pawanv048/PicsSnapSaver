@@ -63,7 +63,7 @@ const [error, setError] = useState('')
           }} />
         <View style={{ marginVertical: sizes.radius * 2 }}>
           <GText
-            text='An email with otp will be send to you'
+            text='An email with link will be send to you'
             style={{
               alignSelf: 'center',
               fontSize: 20

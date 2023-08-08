@@ -10,11 +10,7 @@ export function HomeStack() {
       <Stack.Screen name="home" component={Home} />
       <Stack.Screen name="detail" component={DetailPic} />
       <Stack.Screen name="categories" component={PhotoCategories} />
-      <Stack.Screen
-        name='Profile'
-        component={Profile}
-        options={{ headerShown: false }}
-      />
+      <Stack.Screen name='Profile' component={Profile} />
     </Stack.Navigator>
   );
 }

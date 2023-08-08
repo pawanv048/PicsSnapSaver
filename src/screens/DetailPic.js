@@ -179,7 +179,7 @@ const DetailPic = ({ route }) => {
           return (
             <View style={{ width, height }}>
               <FastImage
-                source={{ uri: item?.urls?.full, priority: FastImage.priority.normal, }}
+                source={{ uri: item?.urls?.raw, priority: FastImage.priority.normal, }}
                 style={[StyleSheet.absoluteFillObject]}
                 resizeMode={FastImage.resizeMode.cover}
               />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
-import { StyleSheet, TouchableOpacity, View, Image, ToastAndroid } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Modal, ScrollView, Text, Pressable, ToastAndroid } from 'react-native';
 import { GButton, GInput, GText } from '../components';
 import GSocialButton from '../components/GSocialButton';
 import icons from '../constants/icons';
@@ -9,21 +9,26 @@ import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import { CreateAccountWithEmailAndPassword } from '../utils/authUtils';
 import { useUserDetail } from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
+import { terms } from '../constants/strings';
 
 const Signup = ({ navigation }) => {
 
-  // const [name, setName] = useState('')
-  // const [email, setEmail] = useState('')
-
+  const [modalVisible, setModalVisible] = useState(false);
   const { name, email, setEmail, setName } = useUserDetail();
-  console.log('details =>', name, email)
   const [password, setPassword] = useState('')
   const [showErrors, setShowErrors] = useState(false)
+  const [accepted, setAccepted] = useState(false)
   const [error, setError] = useState('')
 
   useEffect(() => {
     GoogleSignin.configure()
   }, [])
+
+  const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+    const paddingToBottom = 20;
+    return layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom;
+  };
 
   // Somewhere in your code
   signIn = async () => {
@@ -85,12 +90,14 @@ const Signup = ({ navigation }) => {
       // Store name and email in AsyncStorage before calling handleSignIn
       AsyncStorage.set('name', name);
       AsyncStorage.set('email', email);
+
       handleSignIn(email, password)
     }
   }
 
   const handleSignIn = (email, password) => {
     CreateAccountWithEmailAndPassword({ email, password }).then(() => {
+
       ToastAndroid.show("Account Created", ToastAndroid.SHORT)
     }).catch(error => {
       if (error.code === 'auth/email-already-in-use') {
@@ -149,6 +156,9 @@ const Signup = ({ navigation }) => {
             {error.password && (
               <GText text={error.password} style={{ color: colors.warning, marginLeft: sizes.radius }} />
             )}
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+              <GText text='Terms&Condition' style={{ color: colors.purple, alignSelf: 'center' }} />
+            </TouchableOpacity>
             <GButton
               title='Sign up'
               onPress={handleRegister}
@@ -158,9 +168,47 @@ const Signup = ({ navigation }) => {
               }}
             />
           </View>
+
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.container}>
+              <View style={styles.modalView}>
+                <GText g1 text='Terms and Condition' style={{ marginBottom: sizes.radius }} />
+                <ScrollView
+                  onScroll={({ nativeEvent }) => {
+                    if (isCloseToBottom(nativeEvent)) {
+                      setAccepted(true);
+                      console.log("Accepted State:", accepted);
+                    }
+                  }}
+                >
+                  <Text>{terms}</Text>
+                </ScrollView>
+                <TouchableOpacity
+                  disabled={!accepted}
+                  onPress={() => setModalVisible(!modalVisible)}
+                  style={styles.buttonDisabled}>
+                  <Text style={accepted ? styles.button : styles.buttonLabel}>Accept</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </View>
 
-        <View style={{ flexDirection: 'row', position: 'absolute', alignSelf: 'center', bottom: 40 }}>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            position: 'absolute',
+            alignSelf: 'center',
+            bottom: 40
+          }}>
           <GText
             text={`Already have an account?`}
             style={{
@@ -179,6 +227,7 @@ const Signup = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <GSocialButton onPress={signIn} />
+
       </View>
     </KeyboardAvoidingWrapper>
   )
@@ -193,4 +242,62 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: sizes.height
   },
+  modalView: {
+    margin: sizes.radius * 3,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    height: sizes.height / 1.2,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  container: {
+    marginTop: 20,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: '#136AC7',
+    borderRadius: 5,
+    padding: 10
+  },
+
+  buttonDisabled: {
+    backgroundColor: '#999',
+    borderRadius: 5,
+    padding: 10
+  },
+
+  buttonLabel: {
+    fontSize: 14,
+    color: '#FFF',
+    alignSelf: 'center'
+  }
 })

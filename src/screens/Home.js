@@ -26,7 +26,7 @@ const Home = () => {
 
   // LOADING MORE PHOTOS
   React.useEffect(() => {
-    ToastAndroid.show('Discover Beautiful Random Images', 500, ToastAndroid.SHORT)
+    ToastAndroid.show('Discover Beautiful Random Images', 100, ToastAndroid.SHORT)
     setLoading(true)
     fetchMore();
   }, []);

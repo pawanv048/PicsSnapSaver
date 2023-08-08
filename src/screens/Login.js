@@ -1,39 +1,45 @@
-import React, {useState} from 'react';
-import { StyleSheet, TouchableOpacity, Pressable, View, ToastAndroid } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, Pressable, View, ToastAndroid, Modal, Text, ScrollView } from 'react-native';
 import { GButton, GInput, GText, } from '../components';
 import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LoginWithEmailAndPassword } from '../utils/authUtils';
 import { useUserDetail } from '../helper/userDetail';
+import AsyncStorage from '../utils/storage';
+
+
+
+
+
 const Login = ({ navigation }) => {
 
-
-const {email, setEmail} = useUserDetail()
-// console.log('email:', email)
-const [password, setPassword] = useState('')
-// console.log('password:', password)
-const [showErrors, setShowErrors] = useState(false)
-const [error, setError] = useState('')
+  
+  const { email, setEmail } = useUserDetail()
+  // console.log('email:', email)
+  const [password, setPassword] = useState('')
+  // console.log('password:', password)
+  const [showErrors, setShowErrors] = useState(false)
+  const [error, setError] = useState('')
 
   const getErrors = (email, password) => {
     const error = {}
 
-    if(!email){
+    if (!email) {
       error.email = 'Please Enter Email';
-    }else if(!email.includes("@") || !email.includes('.com')){
+    } else if (!email.includes("@") || !email.includes('.com')) {
       error.email = 'Please Enter Valid Email'
     }
 
-    if(!password){
+    if (!password) {
       error.password = 'Please Enter Password'
-    } else if(password.length < 5){
+    } else if (password.length < 5) {
       error.password = 'Please Enter AtLeast 8 Characters'
     }
 
     return error;
   }
- 
+
   const handleRegister = () => {
     const error = getErrors(email, password)
 
@@ -45,25 +51,25 @@ const [error, setError] = useState('')
       console.log('Login')
       setError({})
       setShowErrors(false)
-      handleLogin({email: email, password: password})
+      handleLogin({ email: email, password: password })
       //navigation.navigate('MainStack', { screen: 'home' })
     }
   }
 
-  const handleLogin = ({email, password}) => {
-    LoginWithEmailAndPassword({email, password}).then(() => {
+  const handleLogin = ({ email, password }) => {
+    LoginWithEmailAndPassword({ email, password }).then(() => {
       ToastAndroid.show("Logged In", ToastAndroid.SHORT)
-    }).catch((e) =>{
-      if(e.code === 'auth/user-not-found'){
-        setError({email: 'User not found'})
+    }).catch((e) => {
+      if (e.code === 'auth/user-not-found') {
+        setError({ email: 'User not found' })
       }
-      if(e.code === 'auth/wrong-password'){
-        setError({password: 'wrong password'})
+      if (e.code === 'auth/wrong-password') {
+        setError({ password: 'wrong password' })
       }
     })
   }
 
- 
+
 
   return (
     <KeyboardAwareScrollView
@@ -82,7 +88,7 @@ const [error, setError] = useState('')
             style={{
               alignSelf: 'center',
               fontSize: 30,
-              fontWeight: '600', 
+              fontWeight: '600',
               color: colors.purple
             }}
           />
@@ -95,7 +101,7 @@ const [error, setError] = useState('')
               onChangeText={e => setEmail(e)}
             />
             {error.email && (
-              <GText text={error.email} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+              <GText text={error.email} style={{ color: colors.warning, marginLeft: sizes.radius }} />
             )}
             <GInput
               source={icons.ilock}
@@ -106,27 +112,27 @@ const [error, setError] = useState('')
               maxLength={10}
             />
             {error.password && (
-              <GText text={error.password} style={{color: colors.warning, marginLeft: sizes.radius}}/>
+              <GText text={error.password} style={{ color: colors.warning, marginLeft: sizes.radius }} />
             )}
             <Pressable onPress={() => navigation.navigate('forgot')}>
-            {/* animation  forgot*/}
+              {/* animation  forgot*/}
               <GText
                 text='Forgot Password?'
                 style={{
                   alignSelf: 'flex-end',
-                  color: colors.purple, 
+                  color: colors.purple,
                   fontSize: 20
                 }}
               />
             </Pressable>
-                
+
             <GButton
               title='Login'
               onPress={handleRegister}
               style={{
                 alignSelf: 'center',
                 marginTop: sizes.radius * 2,
-                
+
               }}
             />
           </View>
@@ -164,5 +170,7 @@ const styles = StyleSheet.create({
     padding: sizes.radius * 2,
     backgroundColor: 'white'
   },
+ 
 
 })
+
