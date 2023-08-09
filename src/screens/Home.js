@@ -14,12 +14,13 @@ import GMasonryList from '../components/GMasonryList';
 import icons from '../constants/icons';
 import { useNavigation } from '@react-navigation/native'
 import FastImage from 'react-native-fast-image';
-import GLoading from '../components/GLoading';
 import { BASE_URI } from '../services/api/API';
+import { sizes } from '../constants/theme';
+import GLoading from '../components/GLoading';
+import { Homecard } from '../components/Shimmers/Homecard';
 
 
-
-const Home = () => {
+const Home = ({navigation}) => {
   // State to track whether new data is being loaded
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false)
@@ -57,10 +58,8 @@ const Home = () => {
         blurRadius={8}
         source={icons.img}
         resizeMode="cover"
-        style={{
-          flex: 1
-        }}
-      >
+        style={{ flex: 1 }} >
+        
         <GMasonryList
           containerStyle={{
             paddingHorizontal: 10,
@@ -74,7 +73,24 @@ const Home = () => {
           renderItem={renderItem}
           numColumns={2}
         />
-        {/* <GLoading size={80}/> */}
+        {/* <GLoading size={80} /> */}
+        {/* <Homecard/> */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Profile')}
+          activeOpacity={0.5}
+          style={{
+            width: 40,
+            height: 40,
+            elevation: 20,
+            position: 'absolute',
+            right: 20,
+            top: sizes.radius * 4
+          }}>
+          <Image
+            resizeMode='contain'
+            source={icons.iProfile}
+            style={{ width: 40, height: 40 }} />
+        </TouchableOpacity>
       </ImageBackground>
     </React.Fragment>
   )

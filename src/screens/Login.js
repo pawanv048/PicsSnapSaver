@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Pressable, View, ToastAndroid, Modal, Text, ScrollView } from 'react-native';
+import { StyleSheet, TouchableOpacity, Pressable, View, ToastAndroid } from 'react-native';
 import { GButton, GInput, GText, } from '../components';
 import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LoginWithEmailAndPassword } from '../utils/authUtils';
 import { useUserDetail } from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
-
-
-
+import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import DeviceInfoConstants from '../utils/DeviceInfoConstants';
 
 
 const Login = ({ navigation }) => {
 
   
-  const { email, setEmail } = useUserDetail()
+  const { name, email, setEmail, setName } = useUserDetail()
   // console.log('email:', email)
   const [password, setPassword] = useState('')
   // console.log('password:', password)
@@ -51,13 +49,18 @@ const Login = ({ navigation }) => {
       console.log('Login')
       setError({})
       setShowErrors(false)
+      AsyncStorage.set('email', email);
+      AsyncStorage.set('name', name);
       handleLogin({ email: email, password: password })
       //navigation.navigate('MainStack', { screen: 'home' })
     }
   }
 
   const handleLogin = ({ email, password }) => {
-    LoginWithEmailAndPassword({ email, password }).then(() => {
+    LoginWithEmailAndPassword({ email, password }).then((res) => {
+      console.log(res)
+      const name = res.user.displayName
+      setName(name)
       ToastAndroid.show("Logged In", ToastAndroid.SHORT)
     }).catch((e) => {
       if (e.code === 'auth/user-not-found') {
@@ -70,17 +73,8 @@ const Login = ({ navigation }) => {
   }
 
 
-
   return (
-    <KeyboardAwareScrollView
-      contentInsetAdjustmentBehavior='automatic'
-      automaticallyAdjustContentInsets={false}
-      showsVerticalScrollIndicator={false}
-      // extraScrollHeight={100}
-      style={{
-        flex: 1,
-        backgroundColor: 'white',
-      }}>
+    <KeyboardAvoidingWrapper>
       <View style={styles.loginContainer}>
         <View style={{ marginTop: '25%', }}>
           <GText
@@ -157,7 +151,7 @@ const Login = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-    </KeyboardAwareScrollView>
+    </KeyboardAvoidingWrapper>
   )
 }
 

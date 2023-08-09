@@ -13,8 +13,7 @@ const GLoading = ({ size }) => {
         height: size,
         borderRadius: size / 2,
         borderWidth: 0,
-        // shadowOpacity: 0.5,
-        
+        // shadowOpacity: 0.5,  
       }}
       animate={{
         width: size + 20,

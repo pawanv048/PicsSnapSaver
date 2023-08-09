@@ -209,24 +209,7 @@ const DetailPic = ({ route }) => {
                   />
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center' }}>
-                  <TouchableOpacity
-                    onPress={() => navigation.navigate('Profile')}
-                    activeOpacity={0.5}
-                    style={{
-                      width: 40,
-                      height: 40,
-                      elevation: 20,
-                      marginBottom: 20
-                    }}>
-                    <Image
-                      resizeMode='contain'
-                      source={icons.iProfile}
-                      style={{
-                        width: 40,
-                        height: 40,
-                      }}
-                    />
-                  </TouchableOpacity>
+                  
                   <TouchableOpacity
                     onPress={checkPermission}
                     activeOpacity={0.5}

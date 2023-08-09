@@ -5,13 +5,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
 import { GButton, GText } from '../components';
 import { colors, sizes } from '../constants/theme';
-import { Terms } from '../constants/strings';
 import { useUserDetail } from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
 
 const Profile = ({ navigation }) => {
 
-  const [accepted, setAccepted] = useState(false);
   const { name, email, setName, setEmail } = useUserDetail()
 
 

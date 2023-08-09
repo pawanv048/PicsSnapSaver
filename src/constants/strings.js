@@ -1,7 +1,7 @@
 export const terms = [
-  `Welcome to our app. If you continue to browse and use this app, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern [business name]’s relationship with you in relation to this app.
-  If you disagree with any part of these terms and conditions, please do not use our app.
-  The term ‘[business name]’ or ‘us’ or ‘we’ refers to the owner of the app whose registered office is [address]. 
+  `Welcome to our app. If you want to continue with this app, you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern Dev Hub’s relationship with you in relation to this app.If you disagree with any part of these terms and conditions, please do not use our app.
+
+  The term Devstrategy Hub or us or we refers to the owner of the app whose registered office is SAS Nagar Mohali. 
   Our company registration number is [company registration number and place of registration]. The term ‘you’ refers to the user or viewer of our app.
   The content of the pages of this app is for your general information and use only. It is subject to change without notice.
   This app uses cookies to monitor browsing preferences. If you do allow cookies to be used, the following personal information may be stored by us for use by third parties: [insert list of information].

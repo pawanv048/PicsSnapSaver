@@ -17,15 +17,13 @@ const [error, setError] = useState('')
 
   const getErrors = (email) => {
     const error = {}
-
     if(!email){
       error.email = 'Please Enter Email';
     }else if(!email.includes("@") || !email.includes('.com')){
       error.email = 'Please Enter Valid Email'
     }
-
     return error;
-  }
+  };
  
   const handleRegister = () => {
     const error = getErrors(email)
@@ -39,7 +37,7 @@ const [error, setError] = useState('')
       handleForgotPassword({email: email})
       //navigation.navigate('MainStack', { screen: 'home' })
     }
-  }
+  };
 
   const handleForgotPassword = ({email}) => {
     ResetPassword({email}).then(() => {
@@ -47,8 +45,7 @@ const [error, setError] = useState('')
     }).catch((e) =>{
       console.log(e)
     })
-  }
-
+  };
 
 
   return (
@@ -59,14 +56,16 @@ const [error, setError] = useState('')
           style={{
             alignSelf: 'center',
             fontSize: 30,
-            fontWeight: '600'
+            fontWeight: '600',
+            color: colors.purple
           }} />
         <View style={{ marginVertical: sizes.radius * 2 }}>
           <GText
             text='An email with link will be send to you'
             style={{
               alignSelf: 'center',
-              fontSize: 20
+              fontSize: 20,
+              color: colors.purple
             }} />
           <GInput
             source={icons.iemail}

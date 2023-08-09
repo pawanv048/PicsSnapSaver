@@ -6,7 +6,7 @@ import GSocialButton from '../components/GSocialButton';
 import icons from '../constants/icons';
 import { sizes, colors } from '../constants/theme';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
-import { CreateAccountWithEmailAndPassword } from '../utils/authUtils';
+import { CreateAccountWithEmailAndPassword, googleLogin } from '../utils/authUtils';
 import { useUserDetail } from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
 import { terms } from '../constants/strings';
@@ -20,9 +20,6 @@ const Signup = ({ navigation }) => {
   const [accepted, setAccepted] = useState(false)
   const [error, setError] = useState('')
 
-  useEffect(() => {
-    GoogleSignin.configure()
-  }, [])
 
   const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
     const paddingToBottom = 20;
@@ -30,31 +27,7 @@ const Signup = ({ navigation }) => {
       contentSize.height - paddingToBottom;
   };
 
-  // Somewhere in your code
-  signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      // setState({ userInfo });
-      console.log('user details', userInfo)
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log(error)
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log(error)
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log(error)
-        // play services not available or outdated
-      } else {
-        // some other error happened
-        console.log(error)
-      }
-    }
-  };
-
-  const getErrors = (name, email, password) => {
+  const getErrors = (name, email, password, accepted) => {
     const error = {}
     if (!name) {
       error.name = 'Please Enter Name';
@@ -64,7 +37,7 @@ const Signup = ({ navigation }) => {
 
     if (!email) {
       error.email = 'Please Enter Email';
-    } else if (!email.includes("@") || !email.includes('.com') || !email.includes('.com')) {
+    } else if (!email.includes("@") || !email.includes('.com')) {
       error.email = 'Please Enter Valid Email'
     }
 
@@ -73,12 +46,14 @@ const Signup = ({ navigation }) => {
     } else if (password.length < 6) {
       error.password = 'Please Enter AtLeast 8 Characters'
     }
-
+    if(accepted === false){
+      error.accepted = ToastAndroid.show('Please accept Terms & condition', ToastAndroid.SHORT)
+    }
     return error;
-  }
+  };
 
   const handleRegister = () => {
-    const error = getErrors(name, email, password)
+    const error = getErrors(name, email, password, accepted)
 
     if (Object.keys(error).length > 0) {
       setShowErrors(true)
@@ -93,11 +68,14 @@ const Signup = ({ navigation }) => {
 
       handleSignIn(email, password)
     }
-  }
+  };
 
   const handleSignIn = (email, password) => {
-    CreateAccountWithEmailAndPassword({ email, password }).then(() => {
-
+    CreateAccountWithEmailAndPassword({ email, password }).then((res) => {
+      const updateName = res.user.updateProfile({
+        displayName: name
+      })
+      console.log('name name=>', updateName)
       ToastAndroid.show("Account Created", ToastAndroid.SHORT)
     }).catch(error => {
       if (error.code === 'auth/email-already-in-use') {
@@ -110,7 +88,7 @@ const Signup = ({ navigation }) => {
       setShowErrors(false)
       console.log(error)
     })
-  }
+  };
 
   return (
     <KeyboardAvoidingWrapper>
@@ -121,7 +99,8 @@ const Signup = ({ navigation }) => {
             style={{
               alignSelf: 'center',
               fontSize: 30,
-              fontWeight: '600'
+              fontWeight: '600',
+              color: colors.purple
             }}
           />
           <View style={{ marginVertical: sizes.radius * 2 }}>
@@ -184,17 +163,16 @@ const Signup = ({ navigation }) => {
                   onScroll={({ nativeEvent }) => {
                     if (isCloseToBottom(nativeEvent)) {
                       setAccepted(true);
-                      console.log("Accepted State:", accepted);
+                      // console.log("Accepted State:", accepted);
                     }
-                  }}
-                >
+                  }} >
                   <Text>{terms}</Text>
                 </ScrollView>
                 <TouchableOpacity
                   disabled={!accepted}
                   onPress={() => setModalVisible(!modalVisible)}
-                  style={styles.buttonDisabled}>
-                  <Text style={accepted ? styles.button : styles.buttonLabel}>Accept</Text>
+                  style={accepted ? styles.button : styles.buttonDisabled}>
+                  <Text style={styles.buttonLabel}>Accept</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -211,10 +189,7 @@ const Signup = ({ navigation }) => {
           }}>
           <GText
             text={`Already have an account?`}
-            style={{
-              fontSize: 20,
-            }}
-          />
+            style={{ fontSize: 20}} />
           <TouchableOpacity onPress={() => navigation.navigate('login')}>
             <GText
               text={`Login In`}
@@ -226,8 +201,7 @@ const Signup = ({ navigation }) => {
             />
           </TouchableOpacity>
         </View>
-        <GSocialButton onPress={signIn} />
-
+        <GSocialButton onPress={googleLogin} />
       </View>
     </KeyboardAvoidingWrapper>
   )
@@ -262,26 +236,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 10,
     marginRight: 10
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
   },
   button: {
     backgroundColor: '#136AC7',

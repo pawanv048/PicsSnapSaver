@@ -18,7 +18,7 @@ export const signOutUser = () => {
 
 
 export const googleLogin = async (callback) => {
-    GoogleSignin.configure();
+    GoogleSignin.configure()
     try {
         await GoogleSignin.hasPlayServices();
         const userInfo = await GoogleSignin.signIn();
@@ -31,12 +31,16 @@ export const googleLogin = async (callback) => {
         console.log("error: " + error.code);
         if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             // user cancelled the login flow
+            console.log(error)
         } else if (error.code === statusCodes.IN_PROGRESS) {
             // operation (f.e. sign in) is in progress already
+            console.log(error)
         } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
             // play services not available or outdated
+            console.log(error)
         } else {
             // some other error happened
+            console.log(error)
         }
     }
 };
