@@ -175,3 +175,34 @@ export const dummyData = [
   },
 
 ];
+
+
+
+
+  // const downloadImage = () => {
+  //   const image_URL = topics[activeIndex]?.urls?.full;
+  //   const date = new Date();
+  //   const ext = image_URL.split('.').pop();
+
+  //   const { config, fs } = RNFetchBlob;
+  //   const PictureDir = fs.dirs.PictureDir;
+  //   const options = {
+  //     fileCache: true,
+  //     addAndroidDownloads: {
+  //       useDownloadManager: true,
+  //       notification: true,
+  //       path: `${PictureDir}/image_${Math.floor(date.getTime() + date.getSeconds() / 2)}.${ext}`,
+  //       description: 'Image',
+  //     },
+  //   };
+  //   config(options)
+  //     .fetch('GET', image_URL)
+  //     .then(res => {
+  //       console.log('res -> ', JSON.stringify(res));
+  //       Alert.alert('Download Complete', 'Image downloaded successfully.');
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //       Alert.alert('Download Failed', 'Failed to download image.');
+  //     });
+  // };

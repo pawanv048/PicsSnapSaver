@@ -12,7 +12,8 @@ import {
   SafeAreaViewBase,
   SafeAreaView,
   PermissionsAndroid,
-  Platform
+  Platform,
+  Alert
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -22,6 +23,7 @@ import icons from '../constants/icons';
 import { colors, sizes, spacing } from '../constants/theme';
 import { apiCall, generatePhotosUrl } from '../services/api/API';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '../utils/storage';
 
 const IMAGE_SIZE = 80;
 
@@ -110,7 +112,7 @@ const DetailPic = ({ route }) => {
     }
   };
 
-
+ 
   const downloadImage = () => {
     // Main function to download the image
 
@@ -156,6 +158,10 @@ const DetailPic = ({ route }) => {
     return /[.]/.exec(filename) ?
       /[^.]+$/.exec(filename) : undefined;
   };
+
+
+
+  
 
 
 

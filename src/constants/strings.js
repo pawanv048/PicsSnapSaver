@@ -18,3 +18,26 @@ export const terms = [
   The use of this app is subject to the following terms of use.
   `
 ]
+
+
+export const introduction = [
+`PicsSnap is an app that seamlessly integrates the tons of images for wallpaper of your home screen, allowing users to explore a diverse array of images within a dedicated gallery.
+Users can interact with this gallery by previewing images and opting to download them, 
+facilitating effortless customization of their device backgrounds.
+`
+];
+export const personalizedDescriptions = [
+  `Furthermore, the app presents a unique facet by providing users with an opportunity to add personalized descriptions to each downloaded image,fostering a sense of connection and ownership.
+  `
+];
+
+export const userAuthentication = [
+  `To enhance individual engagement, the implementation of user authentication ensures a tailored experience.`
+];
+
+export const offlineAccessibility = [
+  `The app optimizes functionality by locally storing downloaded images and their accompanying descriptions, ensuring accessibility even in offline scenarios.
+  As a result, users can revel in a holistic and personalized image exploration and management journey.
+  `
+];
+

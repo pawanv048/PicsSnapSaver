@@ -20,10 +20,12 @@ import GLoading from '../components/GLoading';
 import { Homecard } from '../components/Shimmers/Homecard';
 
 
-const Home = ({navigation}) => {
+const Home = ({ navigation }) => {
   // State to track whether new data is being loaded
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [loader, setLoader] = useState(false)
+
 
   // LOADING MORE PHOTOS
   React.useEffect(() => {
@@ -33,11 +35,18 @@ const Home = ({navigation}) => {
   }, []);
 
   const fetchMore = () => {
-    setData(prevState => [
-      ...prevState,
-      ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
-    ]);
+    setLoader(true)
+    setTimeout(() => {
+      setData(prevState => [
+        ...prevState,
+        ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
+      ]);
+      setLoader(false)
+    }, 2000)
   };
+
+
+
 
   // LISTING ITEMS
   const renderItem = ({ item, i }) => {
@@ -59,22 +68,27 @@ const Home = ({navigation}) => {
         source={icons.img}
         resizeMode="cover"
         style={{ flex: 1 }} >
-        
-        <GMasonryList
-          containerStyle={{
-            paddingHorizontal: 10,
-            paddingVertical: 40,
-            alignSelf: 'stretch',
-            paddingBottom: 10,
-            flexGrow: 1,
-          }}
-          data={data}
-          onEndReached={fetchMore}
-          renderItem={renderItem}
-          numColumns={2}
-        />
-        {/* <GLoading size={80} /> */}
-        {/* <Homecard/> */}
+
+        {/* Conditional rendering based on loading state */}
+        {loader ? (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <GLoading size={80} />
+          </View>
+        ) : (
+          <GMasonryList
+            containerStyle={{
+              paddingHorizontal: 10,
+              paddingVertical: 40,
+              alignSelf: 'stretch',
+              paddingBottom: 10,
+              flexGrow: 1,
+            }}
+            data={data}
+            onEndReached={fetchMore}
+            renderItem={renderItem}
+            numColumns={2}
+          />
+        )}
         <TouchableOpacity
           onPress={() => navigation.navigate('Profile')}
           activeOpacity={0.5}

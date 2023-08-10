@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
-import { GSearch } from '../components';
 import GMasonryList from '../components/GMasonryList';
 import { apiCall, generateCategoriesUrl } from '../services/api/API';
 import { colors, sizes } from '../constants/theme';

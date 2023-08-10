@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, StyleSheet, Image, View, Pressable, Alert, Text, ScrollView } from 'react-native';
+import { Modal, StyleSheet, Image, View, Pressable, Button, ScrollView, StatusBar } from 'react-native';
 import { signOutUser } from '../utils/authUtils';
 import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
-import { GButton, GText } from '../components';
+import { GButton, GModal, GText } from '../components';
 import { colors, sizes } from '../constants/theme';
 import { useUserDetail } from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
 
+
 const Profile = ({ navigation }) => {
 
+  const [aboutModal, setAboutModal] = useState(false);
+
   const { name, email, setName, setEmail } = useUserDetail()
+
+  const toggleModal = () => {
+    setAboutModal(!aboutModal);
+  };
 
 
   useEffect(() => {
@@ -38,7 +45,7 @@ const Profile = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container}> 
       <LinearGradient
         colors={['#1e0e9c', '#3725c2', '#4538a6',]}
         style={{ height: '30%' }}
@@ -66,7 +73,7 @@ const Profile = ({ navigation }) => {
           />
         </Pressable>
       </LinearGradient>
-      <View style={{ alignItems: 'center', marginTop: -50 }}>
+      <View style={{ alignItems: 'center', marginTop: sizes.height * 0.25 * -0.3 }}>
         <Image
           source={icons.user}
           style={{
@@ -82,20 +89,23 @@ const Profile = ({ navigation }) => {
         />
       </View>
 
-      <View style={{ paddingHorizontal: sizes.radius, marginTop: sizes.radius * 2 }}>
-          <CustomView source={icons.iemail} text={email} />
-          <CustomView source={icons.iuser} text={name} />
-          <CustomView source={icons.iTerms} text={'terms&condition'} />
-          <GButton
-            style={{
-              alignSelf: 'center',
-              marginTop: sizes.radius * 3
-            }}
-            title='Logout'
-            onPress={handleLogout}
-          />
-        </View>
-
+      <View style={{ paddingHorizontal: sizes.radius * 2.5, marginTop: sizes.radius * 2 }}>
+        <CustomView source={icons.iemail} text={email} />
+        <CustomView source={icons.iuser} text={name} />
+       
+        <Pressable onPress={toggleModal}>
+          <CustomView source={icons.iTerms} text={'About'} />
+        </Pressable>
+        <GButton
+          style={{
+            alignSelf: 'center',
+            marginTop: sizes.radius * 3
+          }}
+          title='Logout'
+          onPress={handleLogout}
+        />
+      </View>
+      <GModal isVisible={aboutModal} onClose={toggleModal} />
     </View>
   )
 }
@@ -106,8 +116,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-
-
 })
 
 const CustomView = ({ text, source }) => {
@@ -126,12 +134,14 @@ const CustomView = ({ text, source }) => {
       }}>
       <Image
         source={source}
+      
         style={{
           width: 20,
           height: 20,
           marginRight: 10,
           tintColor: '#1e0e9c',
-          resizeMode: 'contain'
+          resizeMode: 'contain',
+          opacity: 0.8
         }}
       />
       <GText text={text} style={{ fontSize: 18, color: '#1e0e9c' }} />
