@@ -35,14 +35,11 @@ const Home = ({ navigation }) => {
   }, []);
 
   const fetchMore = () => {
-    setLoader(true)
-    setTimeout(() => {
       setData(prevState => [
         ...prevState,
         ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
       ]);
       setLoader(false)
-    }, 2000)
   };
 
 

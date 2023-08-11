@@ -136,16 +136,13 @@ const DetailPic = ({ route }) => {
         // Related to the Android only
         useDownloadManager: true,
         notification: true,
-        path:
-          PictureDir +
-          '/image_' +
-          Math.floor(date.getTime() + date.getSeconds() / 2) +
-          ext,
-        description: 'Image',
+        mediaScannable: true,
+        path: PictureDir + '/image_' + Math.floor(date.getTime() + date.getSeconds() / 2) + '.png',
+        description: 'File download',
       },
     };
     config(options)
-      .fetch('GET', image_URL)
+      .fetch('GET', image_URL, {})
       .then(res => {
         // Showing alert after successful downloading
         console.log('res -> ', JSON.stringify(res));
@@ -155,13 +152,8 @@ const DetailPic = ({ route }) => {
 
   const getExtention = filename => {
     // To get the file extension
-    return /[.]/.exec(filename) ?
-      /[^.]+$/.exec(filename) : undefined;
+    return /[.]/.exec(filename) ? /[^.]+$/.exec(filename) : undefined;
   };
-
-
-
-  
 
 
 
@@ -272,5 +264,3 @@ const DetailPic = ({ route }) => {
 };
 
 export default DetailPic;
-
-

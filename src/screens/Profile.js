@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, StyleSheet, Image, View, Pressable, Button, ScrollView, StatusBar } from 'react-native';
+import { Modal, StyleSheet, Image, View, Pressable, Button, ScrollView, StatusBar, Alert } from 'react-native';
 import { signOutUser } from '../utils/authUtils';
 import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
@@ -15,10 +15,14 @@ const Profile = ({ navigation }) => {
 
   const { name, email, setName, setEmail } = useUserDetail()
 
+  
+  // SHOW ABOUT SECTION
+  
   const toggleModal = () => {
     setAboutModal(!aboutModal);
   };
 
+// DISPLAYING USER NAME AND EMAIL 
 
   useEffect(() => {
     // Fetch the name and email from AsyncStorage and update the state
@@ -34,18 +38,37 @@ const Profile = ({ navigation }) => {
     });
   }, []);
 
-  // Lougout function
+
+
+  // LOGOUT
+
   const handleLogout = () => {
     try {
-      signOutUser()
-      console.log('logout')
+      Alert.alert("Logout", "Are you sure, You want to logout?",
+        [
+          {
+            text: "Cancel",
+            onPress: () => {
+              return null;
+            },
+          },
+          {
+            text: "Confirm",
+            onPress: () => {
+              signOutUser()
+              console.log('logout')
+            }
+          }
+        ],
+        { cancelable: false }
+      )
     } catch (error) {
       console.log(error)
     }
   }
 
   return (
-    <View style={styles.container}> 
+    <View style={styles.container}>
       <LinearGradient
         colors={['#1e0e9c', '#3725c2', '#4538a6',]}
         style={{ height: '30%' }}
@@ -92,7 +115,7 @@ const Profile = ({ navigation }) => {
       <View style={{ paddingHorizontal: sizes.radius * 2.5, marginTop: sizes.radius * 2 }}>
         <CustomView source={icons.iemail} text={email} />
         <CustomView source={icons.iuser} text={name} />
-       
+
         <Pressable onPress={toggleModal}>
           <CustomView source={icons.iTerms} text={'About'} />
         </Pressable>
@@ -134,7 +157,6 @@ const CustomView = ({ text, source }) => {
       }}>
       <Image
         source={source}
-      
         style={{
           width: 20,
           height: 20,

@@ -1,11 +1,12 @@
 import axios from "axios";
+import { API_KEY } from '@env';
+
 
 export const baseUrl = 'https://api.unsplash.com';
 
-// PRODUCTION KEYS
-// export const accessKey = '2AcrWZYCjK2U6P0vYywu1gqzdqLtNwQORxhYX2qJnrg'; 
-// export const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
+console.log('API Key:', API_KEY);
+// console.log('Secret Key:', SECRET_KEY);
 
 
 // TESTING KEYS
@@ -32,7 +33,7 @@ export const apiCall = async (props) => {
 
   let defaultHeaders = {
     'Content-Type': 'application/json',
-    'Authorization': `Client-ID ${accessKey}`,
+    'Authorization': `Client-ID ${accessKey} `,
   };
 
   try {

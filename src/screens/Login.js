@@ -63,6 +63,9 @@ const Login = ({ navigation }) => {
       setName(name)
       ToastAndroid.show("Logged In", ToastAndroid.SHORT)
     }).catch((e) => {
+      if(e.code === 'auth/invalid-email'){
+        setError({})
+      }
       if (e.code === 'auth/user-not-found') {
         setError({ email: 'User not found' })
       }
