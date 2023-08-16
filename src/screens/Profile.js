@@ -77,7 +77,7 @@ const Profile = ({ navigation }) => {
           style={{
             backgroundColor: '#fff',
             margin: sizes.radius,
-            marginTop: 30,
+            marginTop: sizes.radius * 3,
             width: 40,
             height: 40,
             justifyContent: 'center',
@@ -113,20 +113,20 @@ const Profile = ({ navigation }) => {
       </View>
 
       <View style={{ paddingHorizontal: sizes.radius * 2.5, marginTop: sizes.radius * 2 }}>
-        <CustomView source={icons.iemail} text={email} />
-        <CustomView source={icons.iuser} text={name} />
+        {/* <CustomView source={icons.iemail} text={email} />
+        <CustomView source={icons.iuser} text={name} /> */}
 
         <Pressable onPress={toggleModal}>
           <CustomView source={icons.iTerms} text={'About'} />
         </Pressable>
-        <GButton
+        {/* <GButton
           style={{
             alignSelf: 'center',
             marginTop: sizes.radius * 3
           }}
           title='Logout'
           onPress={handleLogout}
-        />
+        /> */}
       </View>
       <GModal isVisible={aboutModal} onClose={toggleModal} />
     </View>

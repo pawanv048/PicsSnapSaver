@@ -18,7 +18,7 @@ import { BASE_URI } from '../services/api/API';
 import { sizes } from '../constants/theme';
 import GLoading from '../components/GLoading';
 import { Homecard } from '../components/Shimmers/Homecard';
-
+import LinearGradient from 'react-native-linear-gradient';
 
 const Home = ({ navigation }) => {
   // State to track whether new data is being loaded
@@ -35,11 +35,11 @@ const Home = ({ navigation }) => {
   }, []);
 
   const fetchMore = () => {
-      setData(prevState => [
-        ...prevState,
-        ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
-      ]);
-      setLoader(false)
+    setData(prevState => [
+      ...prevState,
+      ...Array.from({ length: 20 }).map((_, i) => i + 1 + prevState.length),
+    ]);
+    setLoader(false)
   };
 
 
@@ -137,7 +137,10 @@ const MasonryCard = ({ item, style }) => {
           }}
           resizeMode={FastImage.resizeMode.cover}
         />
+        
       </View>
     </TouchableOpacity>
   );
 };
+
+

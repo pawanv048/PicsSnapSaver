@@ -121,7 +121,7 @@ const DetailPic = ({ route }) => {
     let image_URL = topics[activeIndex]?.urls?.full;
     // let image_URL = dummyData[index].imgURL;
 
-    console.log('imageurl=>', image_URL)
+    // console.log('imageurl=>', image_URL)
     // Getting the extention of the file
     let ext = getExtention(image_URL);
     ext = '.' + ext[0];
@@ -130,6 +130,7 @@ const DetailPic = ({ route }) => {
     // fs: Directory path where we want our image to download
     const { config, fs } = RNFetchBlob;
     let PictureDir = fs.dirs.PictureDir;
+    console.log('Picture=>', PictureDir)
     let options = {
       fileCache: true,
       addAndroidDownloads: {
@@ -137,25 +138,27 @@ const DetailPic = ({ route }) => {
         useDownloadManager: true,
         notification: true,
         mediaScannable: true,
-        path: PictureDir + '/image_' + Math.floor(date.getTime() + date.getSeconds() / 2) + '.png',
+        path: PictureDir + '/image_' + Math.floor(date.getTime() + date.getSeconds() / 2) + ext,
         description: 'File download',
       },
+      
     };
     config(options)
       .fetch('GET', image_URL, {})
       .then(res => {
         // Showing alert after successful downloading
         console.log('res -> ', JSON.stringify(res));
+
         alert('Image Downloaded Successfully.');
       });
   };
 
   const getExtention = filename => {
     // To get the file extension
-    return /[.]/.exec(filename) ? /[^.]+$/.exec(filename) : undefined;
+    const baseFilename = filename.split('?')[0]; // Extract the base filename before any query parameters
+    return /[.]/.exec(baseFilename) ? /[^.]+$/.exec(baseFilename) : undefined;
   };
-
-
+  
 
   // MAIN RENDER
   return (

@@ -8,7 +8,7 @@ import { useUserDetail } from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import DeviceInfoConstants from '../utils/DeviceInfoConstants';
-
+import { ErrorCode } from '../constants/strings';
 
 const Login = ({ navigation }) => {
 
@@ -50,7 +50,7 @@ const Login = ({ navigation }) => {
       setError({})
       setShowErrors(false)
       AsyncStorage.set('email', email);
-      AsyncStorage.set('name', name);
+      
       handleLogin({ email: email, password: password })
       //navigation.navigate('MainStack', { screen: 'home' })
     }
@@ -60,18 +60,27 @@ const Login = ({ navigation }) => {
     LoginWithEmailAndPassword({ email, password }).then((res) => {
       console.log(res)
       const name = res.user.displayName
+      AsyncStorage.set('name', name);
       setName(name)
       ToastAndroid.show("Logged In", ToastAndroid.SHORT)
-    }).catch((e) => {
-      if(e.code === 'auth/invalid-email'){
-        setError({})
-      }
-      if (e.code === 'auth/user-not-found') {
-        setError({ email: 'User not found' })
-      }
-      if (e.code === 'auth/wrong-password') {
-        setError({ password: 'wrong password' })
-      }
+    }).catch((error) => {
+      console.log('error:', error)
+        var errorCode = ErrorCode.serverError
+        switch (error.code) {
+          case 'auth/wrong-password':
+            errorCode = ErrorCode.invalidPassword
+            setError({ password: 'wrong password' })
+            break
+          case 'auth/network-request-failed':
+            errorCode = ErrorCode.serverError
+            break
+          case 'auth/user-not-found':
+            errorCode = ErrorCode.noUser
+            setError({ email: 'User not found' })
+            break
+          default:
+            errorCode = ErrorCode.serverError
+        }
     })
   }
 

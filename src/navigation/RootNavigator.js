@@ -27,12 +27,16 @@ const RootNavigator = () => {
 
 
   return (
+    // <Root.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
+    //   {user ? (
+    //     <Root.Screen name="MainStack" component={HomeStack} />
+    //   ) : (
+    //     <Root.Screen name="LoginStack" component={AuthStack} />
+    //   )}
+    // </Root.Navigator>
+
     <Root.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
-      {user ? (
-        <Root.Screen name="MainStack" component={HomeStack} />
-      ) : (
-        <Root.Screen name="LoginStack" component={AuthStack} />
-      )}
+       <Root.Screen name="MainStack" component={HomeStack} />
     </Root.Navigator>
   )
 }

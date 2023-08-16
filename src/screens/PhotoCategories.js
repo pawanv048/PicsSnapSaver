@@ -40,7 +40,7 @@ const PhotoCategories = () => {
   }, []);
 
   const renderItem = ({ item }) => {
-    return <MasonryCard item={item} style={{ marginLeft: 12, }} />
+    return <MasonryCard item={item} style={{ marginLeft: 12 }} />
   };
 
   // MAIN RENDER 
@@ -76,12 +76,12 @@ const MasonryCard = ({ item, style }) => {
   };
 
   const navigation = useNavigation()
+
   return (
     <TouchableOpacity
       key={item.id}
       onPress={navigateToDetailScreen}
-      activeOpacity={0.5}
-    >
+      activeOpacity={0.5}>
       <View key={item.id} style={[{ flex: 1 }, style]}>
         <FastImage
           source={{
@@ -99,7 +99,7 @@ const MasonryCard = ({ item, style }) => {
           style={{
             bottom: 30,
             justifyContent: 'center',
-            alignItems: 'center',
+            alignItems: 'center',  
           }}>
           <LinearGradient
             start={{ x: 0, y: 1 }} end={{ x: 1, y: 0 }}
