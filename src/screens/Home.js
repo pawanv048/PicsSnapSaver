@@ -92,15 +92,19 @@ const Home = ({ navigation }) => {
           style={{
             width: 40,
             height: 40,
+            borderRadius:20,
             elevation: 20,
             position: 'absolute',
             right: 20,
-            top: sizes.radius * 4
+            top: sizes.radius * 4,
+            backgroundColor:'#fff',
+            alignItems:'center',
+            justifyContent:'center',
           }}>
           <Image
             resizeMode='contain'
-            source={icons.iProfile}
-            style={{ width: 40, height: 40 }} />
+            source={icons.iSettings}
+            style={{ width: 25, height: 25, tintColor:'#221087' }} />
         </TouchableOpacity>
       </ImageBackground>
     </React.Fragment>

@@ -27,9 +27,9 @@ const DeviceInfoConstants = (props) => {
   // deviceJSON.deviceType = DeviceInfo.getDeviceType();
 
   return (
-    <View style={{position: 'absolute', bottom: -20, alignSelf: 'center'}}>
+    <View style={{alignItems: 'center'}}>
       <Text style={styles.instructions}>
-        {JSON.stringify(deviceJSON, null, '')}
+        v {deviceJSON?.v}
       </Text>
     </View>
   );
@@ -43,8 +43,11 @@ const styles = StyleSheet.create({
   //   margin: 10,
   // },
   instructions: {
+    fontFamily: 'FjallaOne-Regular',
+    fontSize: 16,
     textAlign: 'center',
-    color: '#333333',
-    margin: 50,
+    color: '#221087',
+    lineHeight:28,
+    // margin: 50,
   },
 });

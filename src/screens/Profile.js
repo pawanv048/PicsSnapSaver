@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, StyleSheet, Image, View, Pressable, Button, ScrollView, StatusBar, Alert } from 'react-native';
+import { Modal, StyleSheet, Image, View, Pressable, Button, ScrollView, StatusBar, Alert, Linking } from 'react-native';
 import { signOutUser } from '../utils/authUtils';
 import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
@@ -7,6 +7,7 @@ import { GButton, GModal, GText } from '../components';
 import { colors, sizes } from '../constants/theme';
 import { useUserDetail } from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
+import DeviceInfoConstants from '../utils/DeviceInfoConstants';
 
 
 const Profile = ({ navigation }) => {
@@ -119,6 +120,10 @@ const Profile = ({ navigation }) => {
         <Pressable onPress={toggleModal}>
           <CustomView source={icons.iTerms} text={'About'} />
         </Pressable>
+
+        <Pressable onPress={() => Linking.openURL('https://l3xqwdhkqn9goeozduz9ow.on.drv.tw/www.DevHubPrivacy&Policy.html')}>
+          <CustomView source={icons.iPrivacy} text={'Privacy & Policy'} />
+        </Pressable>
         {/* <GButton
           style={{
             alignSelf: 'center',
@@ -127,6 +132,9 @@ const Profile = ({ navigation }) => {
           title='Logout'
           onPress={handleLogout}
         /> */}
+      </View>
+      <View style={{marginTop:'auto', marginBottom:100}}>
+        <DeviceInfoConstants/>
       </View>
       <GModal isVisible={aboutModal} onClose={toggleModal} />
     </View>

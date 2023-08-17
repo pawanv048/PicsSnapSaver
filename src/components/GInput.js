@@ -65,7 +65,8 @@ const GInput = (props) => {
         onBlur={onBlur}
         style={{
           height: 40,
-          flex: 1
+          flex: 1,
+          color:'#222'
         }}
         {...props}
         placeholderTextColor="#ccc"
