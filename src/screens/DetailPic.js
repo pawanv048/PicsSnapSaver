@@ -112,10 +112,10 @@ const DetailPic = ({ route }) => {
     }
   };
 
- 
+
   const downloadImage = () => {
     // Main function to download the image
-
+    const accessKey = 'OoqaimbJkm_RVg13Y3XjSX49clHYIzAXqK1bPfV5qX0'; 
     // To add the time suffix in filename
     let date = new Date();
     let image_URL = topics[activeIndex]?.urls?.full;
@@ -131,6 +131,7 @@ const DetailPic = ({ route }) => {
     const { config, fs } = RNFetchBlob;
     let PictureDir = fs.dirs.PictureDir;
     console.log('Picture=>', PictureDir)
+
     let options = {
       fileCache: true,
       addAndroidDownloads: {
@@ -141,7 +142,10 @@ const DetailPic = ({ route }) => {
         path: PictureDir + '/image_' + Math.floor(date.getTime() + date.getSeconds() / 2) + ext,
         description: 'File download',
       },
-      
+      Headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Client-ID ${accessKey} `,
+      }
     };
     config(options)
       .fetch('GET', image_URL, {})
@@ -158,7 +162,7 @@ const DetailPic = ({ route }) => {
     const baseFilename = filename.split('?')[0]; // Extract the base filename before any query parameters
     return /[.]/.exec(baseFilename) ? /[^.]+$/.exec(baseFilename) : undefined;
   };
-  
+
 
   // MAIN RENDER
   return (
@@ -210,7 +214,7 @@ const DetailPic = ({ route }) => {
                   />
                 </TouchableOpacity>
                 <View style={{ alignItems: 'center' }}>
-                  
+
                   <TouchableOpacity
                     onPress={checkPermission}
                     activeOpacity={0.5}

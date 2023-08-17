@@ -20,7 +20,7 @@ export const BASE_URI = 'https://source.unsplash.com/random?sig=';
 
 
 export const generateCategoriesUrl = () => {
-  return `${baseUrl}/topics?&page=1&order_by=oldest&per_page=21`;
+  return `${baseUrl}/topics?&page=1&order_by=oldest&per_page=20`;
 };
 
 export const generatePhotosUrl = (title) => {
@@ -49,3 +49,7 @@ export const apiCall = async (props) => {
     onError(err);
   }
 };
+
+const route = {
+  
+}
