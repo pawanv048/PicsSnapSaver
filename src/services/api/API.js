@@ -5,7 +5,7 @@ import { API_KEY } from '@env';
 export const baseUrl = 'https://api.unsplash.com';
 
 
-console.log('API Key:', API_KEY);
+// console.log('API Key:', API_KEY);
 // console.log('Secret Key:', SECRET_KEY);
 
 

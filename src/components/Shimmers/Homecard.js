@@ -2,7 +2,9 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import LinearGradient from 'react-native-linear-gradient'
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder'
-import GMasonryList from '../GMasonryList'
+import GMasonryList from '../GMasonryList';
+import { sizes } from '../../constants/theme';
+
 
 const Shimmer = createShimmerPlaceholder(LinearGradient);
 
@@ -17,6 +19,8 @@ export const Spics = () => {
       }} />
   )
 }
+
+
 
 
 export const Homecard = () => {
