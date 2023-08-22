@@ -10,7 +10,7 @@ export default {
   get: async function (key) {
     try {
       const json = await AsyncStorage.getItem(key);
-      return JSON.parse(json);
+      return json != null ? JSON.parse(json) : null;
     } catch (error) {
       return null;
     }

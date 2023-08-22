@@ -24,11 +24,17 @@ import icons from '../constants/icons';
 import {colors, sizes, spacing} from '../constants/theme';
 import {apiCall, generatePhotosUrl} from '../services/api/API';
 import {useNavigation} from '@react-navigation/native';
+import Animated,{
+  event, concat, abs, sub, sin, divide, multiply, greaterThan, cond,
+} from 'react-native-reanimated';
 
 const IMAGE_SIZE = 80;
 
 // MAIN
 const DetailPic = ({route}) => {
+  const theme = {mode: 'dark'};
+  const activeColor = colors[theme.mode];
+ 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [topics, setTopics] = useState([]);
@@ -36,6 +42,8 @@ const DetailPic = ({route}) => {
   const topRef = useRef();
   const thumbRef = useRef();
   const SPACING = 10;
+
+
 
   const {width, height} = Dimensions.get('window');
   const {title} = route?.params || {};
@@ -163,9 +171,10 @@ const DetailPic = ({route}) => {
     return /[.]/.exec(baseFilename) ? /[^.]+$/.exec(baseFilename) : undefined;
   };
 
+ 
   // MAIN RENDER
   return (
-    <View style={{flex: 1, backgroundColor: '#fff'}}>
+    <View style={{flex: 1, backgroundColor: "#fff"}}>
       <StatusBar hidden />
       <FlatList
         ref={topRef}
@@ -286,3 +295,4 @@ const DetailPic = ({route}) => {
 };
 
 export default DetailPic;
+

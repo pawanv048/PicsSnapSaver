@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo} from 'react';
+import React, {useState, useRef, useMemo, useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,25 +6,32 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
-  Dimensions,
   ActivityIndicator,
   ToastAndroid,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import GMasonryList from '../components/GMasonryList';
 import icons from '../constants/icons';
+import {colors} from '../constants/theme';
 import {useNavigation} from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
 import {BASE_URI} from '../services/api/API';
 import {sizes} from '../constants/theme';
 import GLoading from '../components/GLoading';
 import {Homecard} from '../components/Shimmers/Homecard';
 import LinearGradient from 'react-native-linear-gradient';
+import {ThemeContext} from '../helper/ThemeContext';
+
+
 
 const Home = ({navigation}) => {
   // State to track whether new data is being loaded
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loader, setLoader] = useState(false);
+
+  // const theme = {mode: 'dark'};
+  const {theme} = useContext(ThemeContext);
+  const activeColor = colors[theme.mode];
 
   const isInitialMount = useRef(true);
 
@@ -64,52 +71,51 @@ const Home = ({navigation}) => {
 
   // MAIN
   return (
-    <React.Fragment>
-      <ImageBackground
+    <View style={{flex: 1, backgroundColor: activeColor.Pblack}}>
+      {/* <ImageBackground
         blurRadius={8}
         source={icons.img}
         resizeMode="cover"
-        style={{flex: 1}}>
-        {/* Conditional rendering based on loading state */}
-        {loader ? (
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <GLoading size={80} />
-          </View>
-        ) : (
-          <GMasonryList
-            containerStyle={{
-              paddingHorizontal: 10,
-              paddingVertical: 40,
-              alignSelf: 'stretch',
-              paddingBottom: 10,
-              flexGrow: 1,
-            }}
-            data={data}
-            onEndReached={fetchMore}
-            renderItem={renderItem}
-            numColumns={2}
-          />
-        )}
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Profile')}
-          activeOpacity={0.5}
-          style={{
-            width: 40,
-            height: 40,
-            elevation: 20,
-            position: 'absolute',
-            right: 20,
-            top: sizes.radius * 4,
-          }}>
-          <Image
-            resizeMode="contain"
-            source={icons.iProfile}
-            style={{width: 40, height: 40}}
-          />
-        </TouchableOpacity>
-      </ImageBackground>
-    </React.Fragment>
+        style={{flex: 1}}> */}
+      {/* Conditional rendering based on loading state */}
+      {loader ? (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <GLoading size={80} />
+        </View>
+      ) : (
+        <GMasonryList
+          containerStyle={{
+            paddingHorizontal: 10,
+            paddingVertical: 40,
+            alignSelf: 'stretch',
+            paddingBottom: 10,
+            flexGrow: 1,
+          }}
+          data={data}
+          onEndReached={fetchMore}
+          renderItem={renderItem}
+          numColumns={2}
+        />
+      )}
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Profile')}
+        activeOpacity={0.5}
+        style={{
+          width: 40,
+          height: 40,
+          elevation: 20,
+          position: 'absolute',
+          right: 20,
+          top: sizes.radius * 4,
+        }}>
+        <Image
+          resizeMode="contain"
+          source={icons.iSettings}
+          style={{width: 25, height: 25, tintColor: '#221087'}}
+        />
+      </TouchableOpacity>
+      {/* </ImageBackground> */}
+    </View>
   );
 };
 
@@ -118,16 +124,13 @@ export default Home;
 const MasonryCard = ({item, style}) => {
   const navigation = useNavigation();
   const randomBool = useMemo(() => Math.random() < 0.5, []);
-  
+
   const handlePress = () => {
     navigation.navigate('categories');
   };
 
   return (
-    <TouchableOpacity
-      key={item.id}
-      onPress={handlePress}
-      activeOpacity={0.5}>
+    <TouchableOpacity key={item.id} onPress={handlePress} activeOpacity={0.5}>
       <View key={item.id} style={[{marginTop: 12, flex: 1}, style]}>
         <FastImage
           source={{

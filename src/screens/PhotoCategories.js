@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,26 +8,28 @@ import {
   Image,
   FlatList,
   StatusBar,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import GMasonryList from '../components/GMasonryList';
-import { apiCall, generateCategoriesUrl } from '../services/api/API';
-import { colors, sizes } from '../constants/theme';
+import {apiCall, generateCategoriesUrl} from '../services/api/API';
+import {colors, sizes} from '../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
 
 
 const PhotoCategories = () => {
   const [topics, setTopics] = useState([]);
+  const theme = {mode: 'dark'};
+  const activeColor = colors[theme.mode];
 
   useEffect(() => {
     const url = generateCategoriesUrl();
-    const onSuccess = (data) => {
+    const onSuccess = data => {
       setTopics(data);
     };
-    const onError = (error) => {
+    const onError = error => {
       console.error(error);
     };
 
@@ -39,54 +41,61 @@ const PhotoCategories = () => {
     });
   }, []);
 
-  const renderItem = ({ item }) => {
-    return <MasonryCard item={item} style={{ marginLeft: 12 }} />
+  const renderItem = ({item}) => {
+    return <MasonryCard item={item} style={{marginLeft: 12}} />;
   };
 
-  // MAIN RENDER 
+  // MAIN RENDER
   return (
-    <ImageBackground
-      blurRadius={8}
-      source={icons.img}
-      resizeMode="cover"
+    // <ImageBackground
+    //   blurRadius={8}
+    //   source={icons.img}
+    //   resizeMode="cover"
+    //   style={{
+    //     flex: 1,
+    //     paddingTop: sizes.radius * 3
+    //   }}
+    // >
+    <GMasonryList
+      containerStyle={{paddingRight: 12, backgroundColor: activeColor.Pblack}}
+      data={topics}
+      renderItem={renderItem}
+      numColumns={3}
       style={{
         flex: 1,
-        paddingTop: sizes.radius * 3
+        paddingTop: sizes.radius * 3,
       }}
-    >
-      <GMasonryList
-        containerStyle={{ paddingRight: 12 }}
-        data={topics}
-        renderItem={renderItem}
-        numColumns={3}
-      />
-    </ImageBackground>
-  )
-}
+    />
+    // </ImageBackground>
+  );
+};
 
 export default PhotoCategories;
 
 
-// LISTING CATEGORIES
-const MasonryCard = ({ item, style }) => {
+
+
+
+// LISTING CATEGORIES ITEMS
+const MasonryCard = ({item, style}) => {
   // Define the onPress event handler to print the item's ID
 
   const navigateToDetailScreen = () => {
-    navigation.navigate('detail', { title: item.slug });
+    navigation.navigate('detail', {title: item.slug});
   };
 
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <TouchableOpacity
       key={item.id}
       onPress={navigateToDetailScreen}
       activeOpacity={0.5}>
-      <View key={item.id} style={[{ flex: 1 }, style]}>
+      <View key={item.id} style={[{flex: 1}, style]}>
         <FastImage
           source={{
             uri: item?.cover_photo?.urls.small,
-            priority: FastImage.priority.low
+            priority: FastImage.priority.low,
           }}
           style={{
             height: 200,
@@ -99,13 +108,13 @@ const MasonryCard = ({ item, style }) => {
           style={{
             bottom: 30,
             justifyContent: 'center',
-            alignItems: 'center',  
+            alignItems: 'center',
           }}>
           <LinearGradient
-            start={{ x: 0, y: 1 }} end={{ x: 1, y: 0 }}
+            start={{x: 0, y: 1}}
+            end={{x: 1, y: 0}}
             colors={['#221087', '#4F10B2', '#7B10D4']}
-            style={{ width: '100%' }}
-          >
+            style={{width: '100%'}}>
             <Text
               numberOfLines={1}
               style={{
@@ -114,9 +123,8 @@ const MasonryCard = ({ item, style }) => {
                 fontSize: 13,
                 fontWeight: '600',
                 color: colors.white,
-                fontFamily: 'Caveat-Bold'
-              }}
-            >
+                fontFamily: 'Caveat-Bold',
+              }}>
               {item?.title}
             </Text>
           </LinearGradient>

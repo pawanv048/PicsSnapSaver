@@ -1,4 +1,6 @@
 {
   "name": "PicsSnapSaver",
-  "displayName": "PicsSnapSaver"
+  "displayName": "PicsSnapSaver",
+  "userInterfaceStyle": "automatic",
+  "orientation": "portrait"
 }
