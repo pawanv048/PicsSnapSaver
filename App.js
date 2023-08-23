@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/navigation/RootNavigator';
 import {UserDetailProvider} from './src/helper/userDetail';
@@ -13,7 +13,7 @@ const App = () => {
     let mode;
     if (!newTheme) {
       mode = theme.mode === 'dark' ? 'light' : 'dark';
-      newTheme = {mode};
+      newTheme = {mode, system: false};
     } else {
       if (newTheme.system) {
         const systemColorScheme = Appearance.getColorScheme();
@@ -25,7 +25,23 @@ const App = () => {
       }
     }
     setTheme(newTheme);
+    
   };
+
+  const fetchStoredTheme =  () => {
+    try {
+      const themeData =  AsyncStorage.get("snapTheme")
+      if(themeData){
+        updateTheme(themeData)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // useEffect(() => {
+  //   fetchStoredTheme()
+  // },[])
 
   /// monitor system for theme change
   if (theme.system) {

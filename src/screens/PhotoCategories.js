@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,11 +17,12 @@ import {apiCall, generateCategoriesUrl} from '../services/api/API';
 import {colors, sizes} from '../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
+import { ThemeContext } from '../helper/ThemeContext';
 
 
 const PhotoCategories = () => {
   const [topics, setTopics] = useState([]);
-  const theme = {mode: 'dark'};
+  const {theme} = useContext(ThemeContext);
   const activeColor = colors[theme.mode];
 
   useEffect(() => {
@@ -47,17 +48,8 @@ const PhotoCategories = () => {
 
   // MAIN RENDER
   return (
-    // <ImageBackground
-    //   blurRadius={8}
-    //   source={icons.img}
-    //   resizeMode="cover"
-    //   style={{
-    //     flex: 1,
-    //     paddingTop: sizes.radius * 3
-    //   }}
-    // >
     <GMasonryList
-      containerStyle={{paddingRight: 12, backgroundColor: activeColor.Pblack}}
+      containerStyle={{paddingRight: 12, backgroundColor: activeColor.primary}}
       data={topics}
       renderItem={renderItem}
       numColumns={3}
@@ -66,7 +58,6 @@ const PhotoCategories = () => {
         paddingTop: sizes.radius * 3,
       }}
     />
-    // </ImageBackground>
   );
 };
 
@@ -122,7 +113,7 @@ const MasonryCard = ({item, style}) => {
                 textAlign: 'center',
                 fontSize: 13,
                 fontWeight: '600',
-                color: colors.white,
+                color: colors.light,
                 fontFamily: 'Caveat-Bold',
               }}>
               {item?.title}

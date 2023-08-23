@@ -21,8 +21,6 @@ import {Homecard} from '../components/Shimmers/Homecard';
 import LinearGradient from 'react-native-linear-gradient';
 import {ThemeContext} from '../helper/ThemeContext';
 
-
-
 const Home = ({navigation}) => {
   // State to track whether new data is being loaded
   const [data, setData] = useState([]);
@@ -31,6 +29,7 @@ const Home = ({navigation}) => {
 
   // const theme = {mode: 'dark'};
   const {theme} = useContext(ThemeContext);
+  console.log(theme);
   const activeColor = colors[theme.mode];
 
   const isInitialMount = useRef(true);
@@ -69,14 +68,13 @@ const Home = ({navigation}) => {
     );
   };
 
-  // MAIN
+  // MAIN VIEW
   return (
-    <View style={{flex: 1, backgroundColor: activeColor.Pblack}}>
-      {/* <ImageBackground
-        blurRadius={8}
-        source={icons.img}
-        resizeMode="cover"
-        style={{flex: 1}}> */}
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.mode === 'light' ? '#FFF3DA' : activeColor.primary,
+      }}>
       {/* Conditional rendering based on loading state */}
       {loader ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -107,6 +105,11 @@ const Home = ({navigation}) => {
           position: 'absolute',
           right: 20,
           top: sizes.radius * 4,
+          backgroundColor: colors.light,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 20,
+          elevation: 20,
         }}>
         <Image
           resizeMode="contain"
@@ -114,7 +117,6 @@ const Home = ({navigation}) => {
           style={{width: 25, height: 25, tintColor: '#221087'}}
         />
       </TouchableOpacity>
-      {/* </ImageBackground> */}
     </View>
   );
 };
@@ -131,7 +133,9 @@ const MasonryCard = ({item, style}) => {
 
   return (
     <TouchableOpacity key={item.id} onPress={handlePress} activeOpacity={0.5}>
-      <View key={item.id} style={[{marginTop: 12, flex: 1}, style]}>
+      <View
+        key={item.id}
+        style={[{marginTop: 12, flex: 1, elevation: 10}, style]}>
         <FastImage
           source={{
             uri: BASE_URI + item,

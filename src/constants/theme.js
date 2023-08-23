@@ -4,16 +4,29 @@ const {width, height} = Dimensions.get('window');
 
 export const colors = {
   light: {
-    Pwhite: '#fff'
+    primary: '#070f18',
+    gray: '#8b8989',
+    lightGray: '#b2b2b2',
+    light: '#fbfbfb',
+    //white: '#fff',
+    black: '#000',
+    purple: '#40128B',
+    warning: '#FF0000' 
   },
-  dark: {
-    Pblack: '#000'
+  dark: { 
+    primary: '#1f2937',
+    gray: 'yellow',
+    lightGray: 'orange',
+    light: '#fbfbfb',
+    //white: '#fff',
+    black: '#000',
+    purple: '#40128B',
+    warning: '#FF0000' 
   },
   primary: '#070f18',
   gray: '#8b8989',
   lightGray: '#b2b2b2',
   light: '#fbfbfb',
-  white: '#fff',
   black: '#000',
   purple: '#40128B',
   warning: '#FF0000'

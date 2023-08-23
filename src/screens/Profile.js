@@ -20,6 +20,7 @@ import {colors, sizes} from '../constants/theme';
 import {useUserDetail} from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
 import {ThemeContext} from '../helper/ThemeContext';
+import DeviceInfoConstants from '../utils/DeviceInfoConstants';
 
 const Profile = ({navigation}) => {
   const [aboutModal, setAboutModal] = useState(false);
@@ -52,9 +53,10 @@ const Profile = ({navigation}) => {
     });
   }, []);
 
-  const handleSwitch = () => {
+  const toggleSwitch = () => {
     updateTheme();
     setIsActive(previousState => !previousState);
+    // onToggleSwitch && onToggleSwitch(!isActive)
   };
 
   // LOGOUT
@@ -114,12 +116,14 @@ const Profile = ({navigation}) => {
         </Pressable>
       </LinearGradient>
 
-      <View
+      <LinearGradient
+        colors={['#4E65FF', '#92EFFD']}
         style={{
-          paddingHorizontal: sizes.radius * 2.5,
+          paddingHorizontal: sizes.radius * 2,
+          paddingVertical: sizes.radius * 5,
+          marginTop: -sizes.radius * 3,
           margin: sizes.radius * 2,
-          // backgroundColor: 'red',
-          backgroundColor: activeColor.Pblack,
+          borderRadius: sizes.radius * 2,
         }}>
         <CustomView
           source={icons.iTerms}
@@ -142,19 +146,20 @@ const Profile = ({navigation}) => {
           active
           containerStyle={{justifyContent: 'space-between'}}
           value={isActive}
-          onValueChange={handleSwitch}
-          thumbColor={isActive ? 'red' : "blue"}
-          trackColor={{
-            false: "blue",
-            true: 'green'
-          }}
+          onValueChange={toggleSwitch}
+          trackColor={{false: 'rgb(159,159,159)', true: '#2192FF'}}
+          thumbColor={'#f4f3f4'}
         />
 
         <CustomView
           source={icons.isystemtheme}
           text={'System'}
+          isActive={theme.system}
           onPress={() => updateTheme({system: true})}
         />
+      </LinearGradient>
+      <View style={{marginTop: 'auto', marginBottom: 100}}>
+        <DeviceInfoConstants />
       </View>
       <GModal isVisible={aboutModal} onClose={toggleModal} />
     </View>
@@ -169,17 +174,20 @@ const styles = StyleSheet.create({
   },
 });
 
-const CustomView = (props) => {
+const CustomView = props => {
   const {
     text,
     source,
-    active, 
-    onPress, 
+    active,
+    onPress,
     containerStyle,
     value,
     onValueChange,
     thumbColor,
-    trackColor
+    trackColor,
+    isActive,
+
+    ...allProps
   } = props;
 
   return (
@@ -193,7 +201,7 @@ const CustomView = (props) => {
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: sizes.radius,
-        marginTop: sizes.radius,
+        marginBottom: sizes.radius,
         borderRadius: 5,
         ...containerStyle,
       }}>
@@ -217,6 +225,7 @@ const CustomView = (props) => {
           onValueChange={onValueChange}
           thumbColor={thumbColor}
           trackColor={trackColor}
+          {...allProps}
         />
       ) : null}
     </Pressable>

@@ -24,9 +24,18 @@ import icons from '../constants/icons';
 import {colors, sizes, spacing} from '../constants/theme';
 import {apiCall, generatePhotosUrl} from '../services/api/API';
 import {useNavigation} from '@react-navigation/native';
-import Animated,{
-  event, concat, abs, sub, sin, divide, multiply, greaterThan, cond,
+import Animated, {
+  event,
+  concat,
+  abs,
+  sub,
+  sin,
+  divide,
+  multiply,
+  greaterThan,
+  cond,
 } from 'react-native-reanimated';
+import LinearGradient from 'react-native-linear-gradient';
 
 const IMAGE_SIZE = 80;
 
@@ -34,7 +43,7 @@ const IMAGE_SIZE = 80;
 const DetailPic = ({route}) => {
   const theme = {mode: 'dark'};
   const activeColor = colors[theme.mode];
- 
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [topics, setTopics] = useState([]);
@@ -42,8 +51,6 @@ const DetailPic = ({route}) => {
   const topRef = useRef();
   const thumbRef = useRef();
   const SPACING = 10;
-
-
 
   const {width, height} = Dimensions.get('window');
   const {title} = route?.params || {};
@@ -171,10 +178,9 @@ const DetailPic = ({route}) => {
     return /[.]/.exec(baseFilename) ? /[^.]+$/.exec(baseFilename) : undefined;
   };
 
- 
   // MAIN RENDER
   return (
-    <View style={{flex: 1, backgroundColor: "#fff"}}>
+    <View style={{flex: 1, backgroundColor: '#fff'}}>
       <StatusBar hidden />
       <FlatList
         ref={topRef}
@@ -224,7 +230,7 @@ const DetailPic = ({route}) => {
                 <TouchableOpacity
                   onPress={() => navigation.goBack()}
                   style={{
-                    backgroundColor: colors.white,
+                    backgroundColor: colors.light,
                     width: 40,
                     height: 40,
                     borderRadius: 20,
@@ -274,18 +280,18 @@ const DetailPic = ({route}) => {
         contentContainerStyle={{paddingHorizontal: SPACING}}
         renderItem={({item, index}) => {
           return (
-            <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>
-              <FastImage
-                source={{uri: item.urls?.small}}
-                style={{
-                  width: IMAGE_SIZE,
-                  height: IMAGE_SIZE,
-                  borderRadius: 12,
-                  marginRight: SPACING,
-                  borderWidth: 2,
-                  borderColor: activeIndex === index ? '#fff' : 'transparent',
-                }}
-              />
+            <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>   
+               <FastImage
+                  source={{uri: item.urls?.small}}
+                  style={{
+                    width: IMAGE_SIZE,
+                    height: IMAGE_SIZE,
+                    borderRadius: 12,
+                    marginRight: SPACING,
+                    borderWidth: 1.5,
+                    borderColor: activeIndex === index ? colors.light : 'transparent',
+                  }}
+                />     
             </TouchableOpacity>
           );
         }}
@@ -295,4 +301,3 @@ const DetailPic = ({route}) => {
 };
 
 export default DetailPic;
-
