@@ -1,19 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { MotiView } from 'moti'
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import {MotiView} from 'moti';
 
-
-const GLoading = ({ size }) => {
+const GLoading = ({size}) => {
   return (
-
-
     <MotiView
       from={{
         width: size,
         height: size,
         borderRadius: size / 2,
         borderWidth: 0,
-        // shadowOpacity: 0.5,  
+        // shadowOpacity: 0.5,
       }}
       animate={{
         width: size + 20,
@@ -25,9 +22,8 @@ const GLoading = ({ size }) => {
       transition={{
         type: 'timing',
         duration: 1000,
-        loop: true
+        loop: true,
       }}
-
       style={{
         width: size,
         height: size,
@@ -35,18 +31,14 @@ const GLoading = ({ size }) => {
         borderWidth: size / 10,
         borderColor: '#fff',
         shadowColor: '#fff',
-        shadowOffset: { width: 0, height: 0 },
+        shadowOffset: {width: 0, height: 0},
         shadowOpacity: 1,
         shadowRadius: 10,
       }}
     />
+  );
+};
 
-  )
-}
+export default GLoading;
 
-export default GLoading
-
-const styles = StyleSheet.create({})
-
-
-
+const styles = StyleSheet.create({});

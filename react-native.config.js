@@ -5,3 +5,6 @@ module.exports = {
   },
   assets:['./src/assets/fonts/'],
 }
+
+
+// react-native-asset

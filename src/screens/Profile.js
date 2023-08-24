@@ -15,12 +15,13 @@ import {
 import {signOutUser} from '../utils/authUtils';
 import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
-import {GButton, GModal, GText} from '../components';
+import {GButton, GModal, GText, LinearGradientView} from '../components';
 import {colors, sizes} from '../constants/theme';
 import {useUserDetail} from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
 import {ThemeContext} from '../helper/ThemeContext';
 import DeviceInfoConstants from '../utils/DeviceInfoConstants';
+import {PRIVACY_POLICY_URL} from '../constants/Constants';
 
 const Profile = ({navigation}) => {
   const [aboutModal, setAboutModal] = useState(false);
@@ -116,8 +117,7 @@ const Profile = ({navigation}) => {
         </Pressable>
       </LinearGradient>
 
-      <LinearGradient
-        colors={['#4E65FF', '#92EFFD']}
+      <LinearGradientView
         style={{
           paddingHorizontal: sizes.radius * 2,
           paddingVertical: sizes.radius * 5,
@@ -134,12 +134,9 @@ const Profile = ({navigation}) => {
         <CustomView
           source={icons.iPrivacy}
           text={'Privacy & Policy'}
-          onPress={() =>
-            Linking.openURL(
-              'https://l3xqwdhkqn9goeozduz9ow.on.drv.tw/www.DevHubPrivacy&Policy.html',
-            )
-          }
+          onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
         />
+
         <CustomView
           source={icons.ithemeswitch}
           text={'Dark Mode'}
@@ -157,10 +154,14 @@ const Profile = ({navigation}) => {
           isActive={theme.system}
           onPress={() => updateTheme({system: true})}
         />
-      </LinearGradient>
+      </LinearGradientView>
+
+      {/* DEVICE VERSION */}
       <View style={{marginTop: 'auto', marginBottom: 100}}>
         <DeviceInfoConstants />
       </View>
+
+      {/* OPEN ABOUT */}
       <GModal isVisible={aboutModal} onClose={toggleModal} />
     </View>
   );

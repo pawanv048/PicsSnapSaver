@@ -17,7 +17,8 @@ import {apiCall, generateCategoriesUrl} from '../services/api/API';
 import {colors, sizes} from '../constants/theme';
 import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
-import { ThemeContext } from '../helper/ThemeContext';
+import {ThemeContext} from '../helper/ThemeContext';
+import { LinearGradientView } from '../components';
 
 
 const PhotoCategories = () => {
@@ -48,24 +49,22 @@ const PhotoCategories = () => {
 
   // MAIN RENDER
   return (
-    <GMasonryList
-      containerStyle={{paddingRight: 12, backgroundColor: activeColor.primary}}
-      data={topics}
-      renderItem={renderItem}
-      numColumns={3}
-      style={{
-        flex: 1,
-        paddingTop: sizes.radius * 3,
-      }}
-    />
+    <LinearGradientView style={{flex: 1}}>
+      <GMasonryList
+        containerStyle={{paddingRight: 12}}
+        data={topics}
+        renderItem={renderItem}
+        numColumns={3}
+        style={{
+          flex: 1,
+          paddingTop: sizes.radius * 3,
+        }}
+      />
+    </LinearGradientView>
   );
 };
 
 export default PhotoCategories;
-
-
-
-
 
 // LISTING CATEGORIES ITEMS
 const MasonryCard = ({item, style}) => {

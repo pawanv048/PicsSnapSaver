@@ -1,154 +1,170 @@
-import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Pressable, View, ToastAndroid } from 'react-native';
-import { GButton, GInput, GText, } from '../components';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+  View,
+  ToastAndroid,
+} from 'react-native';
+import {GButton, GInput, GText} from '../components';
 import icons from '../constants/icons';
-import { sizes, colors } from '../constants/theme';
-import { LoginWithEmailAndPassword } from '../utils/authUtils';
-import { useUserDetail } from '../helper/userDetail';
+import {sizes, colors} from '../constants/theme';
+import {LoginWithEmailAndPassword} from '../utils/authUtils';
+import {useUserDetail} from '../helper/userDetail';
 import AsyncStorage from '../utils/storage';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import DeviceInfoConstants from '../utils/DeviceInfoConstants';
-import { ErrorCode } from '../constants/strings';
+import {ErrorCode} from '../constants/strings';
 
-const Login = ({ navigation }) => {
-
-  
-  const { name, email, setEmail, setName } = useUserDetail()
+const Login = ({navigation}) => {
+  const {name, email, setEmail, setName} = useUserDetail();
   // console.log('email:', email)
-  const [password, setPassword] = useState('')
+  const [password, setPassword] = useState('');
   // console.log('password:', password)
-  const [showErrors, setShowErrors] = useState(false)
-  const [error, setError] = useState('')
+  const [showErrors, setShowErrors] = useState(false);
+  const [error, setError] = useState('');
 
   const getErrors = (email, password) => {
-    const error = {}
+    const error = {};
 
     if (!email) {
       error.email = 'Please Enter Email';
-    } else if (!email.includes("@") || !email.includes('.com')) {
-      error.email = 'Please Enter Valid Email'
+    } else if (!email.includes('@') || !email.includes('.com')) {
+      error.email = 'Please Enter Valid Email';
     }
 
     if (!password) {
-      error.password = 'Please Enter Password'
+      error.password = 'Please Enter Password';
     } else if (password.length < 5) {
-      error.password = 'Please Enter AtLeast 8 Characters'
+      error.password = 'Please Enter AtLeast 8 Characters';
     }
 
     return error;
-  }
+  };
 
   const handleRegister = () => {
-    const error = getErrors(email, password)
+    const error = getErrors(email, password);
 
     if (Object.keys(error).length > 0) {
-      setShowErrors(true)
-      setError(showErrors && error)
-      console.log(error)
+      setShowErrors(true);
+      setError(showErrors && error);
+      console.log(error);
     } else {
-      console.log('Login')
-      setError({})
-      setShowErrors(false)
+      console.log('Login');
+      setError({});
+      setShowErrors(false);
       AsyncStorage.set('email', email);
-      
-      handleLogin({ email: email, password: password })
+
+      handleLogin({email: email, password: password});
       //navigation.navigate('MainStack', { screen: 'home' })
     }
-  }
+  };
 
-  const handleLogin = ({ email, password }) => {
-    LoginWithEmailAndPassword({ email, password }).then((res) => {
-      console.log(res)
-      const name = res.user.displayName
-      AsyncStorage.set('name', name);
-      setName(name)
-      ToastAndroid.show("Logged In", ToastAndroid.SHORT)
-    }).catch((error) => {
-      console.log('error:', error)
-        var errorCode = ErrorCode.serverError
+  const handleLogin = ({email, password}) => {
+    LoginWithEmailAndPassword({email, password})
+      .then(res => {
+        console.log(res);
+        const name = res.user.displayName;
+        AsyncStorage.set('name', name);
+        setName(name);
+        ToastAndroid.show('Logged In', ToastAndroid.SHORT);
+      })
+      .catch(error => {
+        console.log('error:', error);
+        var errorCode = ErrorCode.serverError;
         switch (error.code) {
           case 'auth/wrong-password':
-            errorCode = ErrorCode.invalidPassword
-            setError({ password: 'wrong password' })
-            break
+            errorCode = ErrorCode.invalidPassword;
+            setError({password: 'wrong password'});
+            break;
           case 'auth/network-request-failed':
-            errorCode = ErrorCode.serverError
-            break
+            errorCode = ErrorCode.serverError;
+            break;
           case 'auth/user-not-found':
-            errorCode = ErrorCode.noUser
-            setError({ email: 'User not found' })
-            break
+            errorCode = ErrorCode.noUser;
+            setError({email: 'User not found'});
+            break;
           default:
-            errorCode = ErrorCode.serverError
+            errorCode = ErrorCode.serverError;
         }
-    })
-  }
-
+      });
+  };
 
   return (
     <KeyboardAvoidingWrapper>
       <View style={styles.loginContainer}>
-        <View style={{ marginTop: '25%', }}>
+        <View style={{marginTop: '25%'}}>
           <GText
-            text='Welcome Back!'
+            text="Welcome Back!"
             style={{
               alignSelf: 'center',
               fontSize: 30,
               fontWeight: '600',
-              color: colors.purple
+              color: colors.purple,
             }}
           />
-          <View style={{ marginVertical: sizes.radius * 2 }}>
+          <View style={{marginVertical: sizes.radius * 2}}>
             <GInput
               source={icons.iuser}
-              placeholder='Email'
+              placeholder="Email"
               autoFocus
               // value={email}
               onChangeText={e => setEmail(e)}
             />
             {error.email && (
-              <GText text={error.email} style={{ color: colors.warning, marginLeft: sizes.radius }} />
+              <GText
+                text={error.email}
+                style={{color: colors.warning, marginLeft: sizes.radius}}
+              />
             )}
             <GInput
               source={icons.ilock}
-              placeholder='Password'
+              placeholder="Password"
               secureTextEntry
               // value={password}
               onChangeText={e => setPassword(e)}
               maxLength={10}
             />
             {error.password && (
-              <GText text={error.password} style={{ color: colors.warning, marginLeft: sizes.radius }} />
+              <GText
+                text={error.password}
+                style={{color: colors.warning, marginLeft: sizes.radius}}
+              />
             )}
             <Pressable onPress={() => navigation.navigate('forgot')}>
               {/* animation  forgot*/}
               <GText
-                text='Forgot Password?'
+                text="Forgot Password?"
                 style={{
                   alignSelf: 'flex-end',
                   color: colors.purple,
-                  fontSize: 20
+                  fontSize: 20,
                 }}
               />
             </Pressable>
 
             <GButton
-              title='Login'
+              title="Login"
               onPress={handleRegister}
               style={{
                 alignSelf: 'center',
                 marginTop: sizes.radius * 2,
-
               }}
             />
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row', alignSelf: 'center', position: 'absolute', bottom: 50 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+            position: 'absolute',
+            bottom: 50,
+          }}>
           <GText
             text={`Don't have an account?`}
             style={{
-              fontSize: 20
+              fontSize: 20,
             }}
           />
           <TouchableOpacity onPress={() => navigation.navigate('signup')}>
@@ -157,26 +173,23 @@ const Login = ({ navigation }) => {
               style={{
                 color: colors.purple,
                 fontWeight: '500',
-                fontSize: 20
+                fontSize: 20,
               }}
             />
           </TouchableOpacity>
         </View>
       </View>
     </KeyboardAvoidingWrapper>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
 
 const styles = StyleSheet.create({
   loginContainer: {
     flex: 1,
     height: sizes.height,
     padding: sizes.radius * 2,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
- 
-
-})
-
+});

@@ -6,11 +6,11 @@
 import React from 'react';
 
 // import all the components we are going to use
-import { View, StyleSheet, Text } from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 
-const DeviceInfoConstants = (props) => {
+const DeviceInfoConstants = props => {
   let deviceJSON = {};
   // deviceJSON.uniqueId = DeviceInfo.getUniqueId();
   // deviceJSON.deviceId = DeviceInfo.getDeviceId();
@@ -27,10 +27,8 @@ const DeviceInfoConstants = (props) => {
   // deviceJSON.deviceType = DeviceInfo.getDeviceType();
 
   return (
-    <View style={{position: 'absolute', bottom: -20, alignSelf: 'center'}}>
-      <Text style={styles.instructions}>
-      v {deviceJSON?.v}
-      </Text>
+    <View style={{alignSelf: 'center'}}>
+      <Text style={styles.instructions}>v {deviceJSON?.v}</Text>
     </View>
   );
 };
@@ -47,6 +45,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#221087',
-    lineHeight:28,
+    lineHeight: 28,
   },
 });

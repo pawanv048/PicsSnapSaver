@@ -1,12 +1,10 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React,{useState, useEffect} from 'react'
-import { AuthStack } from './AuthStack';
-import { HomeStack } from './HomeStack';
+import {createStackNavigator} from '@react-navigation/stack';
+import React, {useState, useEffect} from 'react';
+import {AuthStack} from './AuthStack';
+import {HomeStack} from './HomeStack';
 import auth from '@react-native-firebase/auth';
 
-
 const RootNavigator = () => {
-  
   const Root = createStackNavigator();
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -20,11 +18,10 @@ const RootNavigator = () => {
   }, []);
 
   // Handle user state changes
-  const onAuthStateChanged = (user) => {
+  const onAuthStateChanged = user => {
     setUser(user);
     if (initializing) setInitializing(false);
-  }
-
+  };
 
   return (
     // <Root.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
@@ -35,10 +32,11 @@ const RootNavigator = () => {
     //   )}
     // </Root.Navigator>
 
-    <Root.Navigator screenOptions={{ headerShown: false, animationEnabled: false }}>
-       <Root.Screen name="MainStack" component={HomeStack} />
+    <Root.Navigator
+      screenOptions={{headerShown: false, animationEnabled: false}}>
+      <Root.Screen name="MainStack" component={HomeStack} />
     </Root.Navigator>
-  )
-}
+  );
+};
 
-export default RootNavigator
+export default RootNavigator;

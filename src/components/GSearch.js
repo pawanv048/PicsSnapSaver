@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image
+  Image,
 } from 'react-native';
 import icons from '../constants/icons';
 import {colors, spacing, sizes, shadow} from '../constants/theme';
 
-const GSearch = (props) => {
+const GSearch = props => {
   const [search, setSearch] = useState('');
   return (
     <View style={styles.container}>
@@ -20,7 +20,7 @@ const GSearch = (props) => {
             style={{
               width: 20,
               height: 20,
-              tintColor: 'grey'
+              tintColor: 'grey',
             }}
           />
         </View>
@@ -34,10 +34,9 @@ const GSearch = (props) => {
       </View>
     </View>
   );
-}
+};
 
 export default GSearch;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -70,6 +69,4 @@ const styles = StyleSheet.create({
     right: 10,
     zIndex: 1,
   },
-})
-
-
+});

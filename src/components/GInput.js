@@ -1,10 +1,9 @@
-import React, {useRef, useEffect} from 'react'
-import { Image, Text, View, TextInput, Keyboard } from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import {Image, Text, View, TextInput, Keyboard} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { colors, sizes } from '../constants/theme';
-const GInput = (props) => {
-  
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {colors, sizes} from '../constants/theme';
+const GInput = props => {
   const {
     value,
     onChangeText,
@@ -14,17 +13,20 @@ const GInput = (props) => {
     keyboardType,
     autoFocus,
     maxLength,
-    onBlur
-  } = props
+    onBlur,
+  } = props;
 
   const inputRef = useRef();
 
   const handleFocusOut = () => inputRef?.current?.blur();
 
   useEffect(() => {
-    const subscription = Keyboard.addListener('keyboardDidHide', handleFocusOut);
+    const subscription = Keyboard.addListener(
+      'keyboardDidHide',
+      handleFocusOut,
+    );
     return () => {
-      subscription.remove()
+      subscription.remove();
     };
   }, []);
 
@@ -47,7 +49,7 @@ const GInput = (props) => {
           height: 20,
           marginRight: 5,
           tintColor: '#40128B',
-          resizeMode: 'contain'
+          resizeMode: 'contain',
         }}
       />
       <TextInput
@@ -59,13 +61,13 @@ const GInput = (props) => {
         placeholder={placeholder}
         keyboardType={keyboardType}
         spellCheck={false}
-        cursorColor={colors.primary}      // for android only
+        cursorColor={colors.primary} // for android only
         maxLength={maxLength}
         autoFocus={autoFocus}
         onBlur={onBlur}
         style={{
           height: 40,
-          flex: 1
+          flex: 1,
         }}
         {...props}
         placeholderTextColor="#ccc"
@@ -73,8 +75,7 @@ const GInput = (props) => {
         secureTextEntry={secureTextEntry}
       />
     </View>
-  )
-}
+  );
+};
 
-export default GInput
-
+export default GInput;

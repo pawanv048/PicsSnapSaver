@@ -17,7 +17,7 @@
 //     return (
 //      <View style={styles.container}>
 //             <Text style={styles.title}>Terms and conditions</Text>
-//             <ScrollView 
+//             <ScrollView
 //             style={styles.tcContainer}
 //             onScroll={({nativeEvent}) => {
 //                 if (isCloseToBottom(nativeEvent)) {
@@ -104,10 +104,7 @@
 
 // export default TermsAndConditions;
 
-
-
-
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -116,7 +113,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+const isCloseToBottom = ({layoutMeasurement, contentOffset, contentSize}) => {
   const paddingToBottom = 20;
   return (
     layoutMeasurement.height + contentOffset.y >=
@@ -132,27 +129,25 @@ export function TermsAndConditions() {
       <Text style={styles.title}>Terms and conditions</Text>
       <ScrollView
         style={styles.tcContainer}
-        onScroll={({ nativeEvent }) => {
+        onScroll={({nativeEvent}) => {
           if (isCloseToBottom(nativeEvent)) {
             setAccepted(true);
           }
-        }}
-      >
+        }}>
         {/* ... Existing content ... */}
       </ScrollView>
 
       <TouchableOpacity
         disabled={!accepted}
         onPress={() => alert('Terms and conditions accepted')}
-        style={accepted ? styles.button : styles.buttonDisabled}
-      >
+        style={accepted ? styles.button : styles.buttonDisabled}>
         <Text style={styles.buttonLabel}>Accept</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 const styles = {
   container: {

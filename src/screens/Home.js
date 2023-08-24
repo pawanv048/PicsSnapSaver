@@ -20,6 +20,8 @@ import GLoading from '../components/GLoading';
 import {Homecard} from '../components/Shimmers/Homecard';
 import LinearGradient from 'react-native-linear-gradient';
 import {ThemeContext} from '../helper/ThemeContext';
+import { LinearGradientView } from '../components';
+
 
 const Home = ({navigation}) => {
   // State to track whether new data is being loaded
@@ -29,7 +31,7 @@ const Home = ({navigation}) => {
 
   // const theme = {mode: 'dark'};
   const {theme} = useContext(ThemeContext);
-  console.log(theme);
+  // console.log(theme);
   const activeColor = colors[theme.mode];
 
   const isInitialMount = useRef(true);
@@ -70,11 +72,9 @@ const Home = ({navigation}) => {
 
   // MAIN VIEW
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: theme.mode === 'light' ? '#FFF3DA' : activeColor.primary,
-      }}>
+    <LinearGradientView
+      style={{flex: 1}}>
+
       {/* Conditional rendering based on loading state */}
       {loader ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -117,11 +117,13 @@ const Home = ({navigation}) => {
           style={{width: 25, height: 25, tintColor: '#221087'}}
         />
       </TouchableOpacity>
-    </View>
+    </LinearGradientView>
   );
 };
 
 export default Home;
+
+
 
 const MasonryCard = ({item, style}) => {
   const navigation = useNavigation();

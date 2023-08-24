@@ -141,7 +141,7 @@ const DetailPic = ({route}) => {
     // fs: Directory path where we want our image to download
     const {config, fs} = RNFetchBlob;
     let PictureDir = fs.dirs.PictureDir;
-    console.log('Picture=>', PictureDir);
+    // console.log('Picture=>', PictureDir);
 
     let options = {
       fileCache: true,
@@ -280,18 +280,19 @@ const DetailPic = ({route}) => {
         contentContainerStyle={{paddingHorizontal: SPACING}}
         renderItem={({item, index}) => {
           return (
-            <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>   
-               <FastImage
-                  source={{uri: item.urls?.small}}
-                  style={{
-                    width: IMAGE_SIZE,
-                    height: IMAGE_SIZE,
-                    borderRadius: 12,
-                    marginRight: SPACING,
-                    borderWidth: 1.5,
-                    borderColor: activeIndex === index ? colors.light : 'transparent',
-                  }}
-                />     
+            <TouchableOpacity onPress={() => scrollToActiveIndex(index)}>
+              <FastImage
+                source={{uri: item.urls?.small}}
+                style={{
+                  width: IMAGE_SIZE,
+                  height: IMAGE_SIZE,
+                  borderRadius: 12,
+                  marginRight: SPACING,
+                  borderWidth: 1.5,
+                  borderColor:
+                    activeIndex === index ? colors.light : 'transparent',
+                }}
+              />
             </TouchableOpacity>
           );
         }}
