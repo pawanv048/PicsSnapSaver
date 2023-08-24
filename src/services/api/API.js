@@ -16,7 +16,7 @@ export const BASE_URI = 'https://source.unsplash.com/random?sig=';
 // TESTING KEYS
 
 export const generateCategoriesUrl = () => {
-  return `${baseUrl}/topics?&page=1&order_by=oldest&per_page=20`;
+  return `${baseUrl}/topics?&page=1&order_by=popular&per_page=20`;
 };
 
 export const generatePhotosUrl = title => {

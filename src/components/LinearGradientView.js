@@ -20,6 +20,6 @@ const LinearGradientView = ({style, start, locations, end, children}) => {
     </LinearGradient>
   );
 };
-//['#221087', '#4F10B2', '#7B10D4']
-//['#4E65FF', '#92EFFD']
+
+
 export default LinearGradientView;

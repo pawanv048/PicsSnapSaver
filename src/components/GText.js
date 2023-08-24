@@ -7,8 +7,8 @@ const GText = props => {
     <Text
       {...componentProps}
       style={[
-        {
-          fontFamily: 'Caveat-SemiBold',
+        {     
+          fontFamily: 'Caveat-Bold',
           // fontFamily: 'FjallaOne-Regular',
           fontSize: fontSize(props),
           color: color(props),

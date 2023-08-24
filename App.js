@@ -9,7 +9,7 @@ import AsyncStorage from './src/utils/storage';
 const App = () => {
   const [theme, setTheme] = useState({mode: 'dark'});
 
-  const updateTheme = newTheme => {
+  const updateTheme = async (newTheme) => {
     let mode;
     if (!newTheme) {
       mode = theme.mode === 'dark' ? 'light' : 'dark';
@@ -25,12 +25,12 @@ const App = () => {
       }
     }
     setTheme(newTheme);
-    
+    await AsyncStorage.set('snapTheme', newTheme)
   };
 
-  const fetchStoredTheme =  () => {
+  const fetchStoredTheme = async () => {
     try {
-      const themeData =  AsyncStorage.get("snapTheme")
+      const themeData = await AsyncStorage.get("snapTheme")
       if(themeData){
         updateTheme(themeData)
       }
@@ -39,9 +39,9 @@ const App = () => {
     }
   }
 
-  // useEffect(() => {
-  //   fetchStoredTheme()
-  // },[])
+  useEffect(() => {
+    fetchStoredTheme()
+  },[])
 
   /// monitor system for theme change
   if (theme.system) {

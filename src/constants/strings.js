@@ -59,3 +59,11 @@ export const ErrorCode = {
   googleSigninFailed: 'googleSigninFailed',
   requiresRecentLogin: 'requiresRecentLogin',
 };
+
+
+export const AppLabel = {
+  darkmode: 'Dark Mode',
+  privacy: 'Privacy & Policy',
+  about: 'About',
+  
+}

@@ -100,10 +100,9 @@ const MasonryCard = ({item, style}) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <LinearGradient
+          <LinearGradientView
             start={{x: 0, y: 1}}
             end={{x: 1, y: 0}}
-            colors={['#221087', '#4F10B2', '#7B10D4']}
             style={{width: '100%'}}>
             <Text
               numberOfLines={1}
@@ -117,7 +116,7 @@ const MasonryCard = ({item, style}) => {
               }}>
               {item?.title}
             </Text>
-          </LinearGradient>
+          </LinearGradientView>
         </View>
       </View>
     </TouchableOpacity>

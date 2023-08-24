@@ -1,4 +1,5 @@
 import React, {useState, useRef, useMemo, useContext} from 'react';
+import 'react-native-gesture-handler';
 import {
   StyleSheet,
   Text,
@@ -18,10 +19,8 @@ import {BASE_URI} from '../services/api/API';
 import {sizes} from '../constants/theme';
 import GLoading from '../components/GLoading';
 import {Homecard} from '../components/Shimmers/Homecard';
-import LinearGradient from 'react-native-linear-gradient';
 import {ThemeContext} from '../helper/ThemeContext';
-import { LinearGradientView } from '../components';
-
+import {LinearGradientView} from '../components';
 
 const Home = ({navigation}) => {
   // State to track whether new data is being loaded
@@ -72,9 +71,7 @@ const Home = ({navigation}) => {
 
   // MAIN VIEW
   return (
-    <LinearGradientView
-      style={{flex: 1}}>
-
+    <LinearGradientView style={{flex: 1}}>
       {/* Conditional rendering based on loading state */}
       {loader ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -122,8 +119,6 @@ const Home = ({navigation}) => {
 };
 
 export default Home;
-
-
 
 const MasonryCard = ({item, style}) => {
   const navigation = useNavigation();

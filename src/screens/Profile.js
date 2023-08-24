@@ -22,6 +22,8 @@ import AsyncStorage from '../utils/storage';
 import {ThemeContext} from '../helper/ThemeContext';
 import DeviceInfoConstants from '../utils/DeviceInfoConstants';
 import {PRIVACY_POLICY_URL} from '../constants/Constants';
+import { AppLabel } from '../constants/strings';
+
 
 const Profile = ({navigation}) => {
   const [aboutModal, setAboutModal] = useState(false);
@@ -32,7 +34,7 @@ const Profile = ({navigation}) => {
   // SHOW ABOUT SECTION
 
   const activeColor = colors[theme.mode];
-  const [isActive, setIsActive] = useState(theme.mode === 'dark');
+  const [isActive, setIsActive] = useState(theme.mode === 'light');
 
   const toggleModal = () => {
     setAboutModal(!aboutModal);
@@ -127,19 +129,19 @@ const Profile = ({navigation}) => {
         }}>
         <CustomView
           source={icons.iTerms}
-          text={'About'}
+          text={AppLabel.about}
           onPress={toggleModal}
         />
 
         <CustomView
           source={icons.iPrivacy}
-          text={'Privacy & Policy'}
+          text={AppLabel.privacy}
           onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
         />
 
         <CustomView
           source={icons.ithemeswitch}
-          text={'Dark Mode'}
+          text={AppLabel.darkmode}
           active
           containerStyle={{justifyContent: 'space-between'}}
           value={isActive}
@@ -148,12 +150,12 @@ const Profile = ({navigation}) => {
           thumbColor={'#f4f3f4'}
         />
 
-        <CustomView
+        {/* <CustomView
           source={icons.isystemtheme}
           text={'System'}
           isActive={theme.system}
           onPress={() => updateTheme({system: true})}
-        />
+        /> */}
       </LinearGradientView>
 
       {/* DEVICE VERSION */}
@@ -172,6 +174,7 @@ export default Profile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.light
   },
 });
 
@@ -206,7 +209,7 @@ const CustomView = props => {
         borderRadius: 5,
         ...containerStyle,
       }}>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Image
           source={source}
           style={{
@@ -215,10 +218,10 @@ const CustomView = props => {
             marginRight: 10,
             tintColor: '#1e0e9c',
             resizeMode: 'contain',
-            opacity: 0.8,
+            opacity: 0.9,
           }}
         />
-        <GText text={text} style={{fontSize: 18, color: '#1e0e9c'}} />
+        <GText text={text} style={{fontSize: 16, color: '#1e0e9c'}} />
       </View>
       {active ? (
         <Switch
@@ -232,6 +235,11 @@ const CustomView = props => {
     </Pressable>
   );
 };
+
+
+
+
+
 
 /**************/
 {
