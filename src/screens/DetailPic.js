@@ -24,18 +24,6 @@ import icons from '../constants/icons';
 import {colors, sizes, spacing} from '../constants/theme';
 import {apiCall, generatePhotosUrl} from '../services/api/API';
 import {useNavigation} from '@react-navigation/native';
-import Animated, {
-  event,
-  concat,
-  abs,
-  sub,
-  sin,
-  divide,
-  multiply,
-  greaterThan,
-  cond,
-} from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient';
 
 const IMAGE_SIZE = 80;
 
@@ -166,8 +154,8 @@ const DetailPic = ({route}) => {
       .fetch('GET', image_URL, {})
       .then(res => {
         // Showing alert after successful downloading
-        console.log('res -> ', JSON.stringify(res));
-
+        // console.log('res -> ', JSON.stringify(res));
+        
         alert('Image Downloaded Successfully.');
       });
   };

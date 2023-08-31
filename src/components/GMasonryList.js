@@ -1,19 +1,11 @@
-import React, {useMemo, useState, useRef, useEffect} from 'react';
+import React from 'react';
 import {
   Image,
   View,
   ImageBackground,
   StatusBar,
-  StyleSheet,
-  Dimensions,
-  ActivityIndicator,
-  TouchableOpacity,
-  Platform,
 } from 'react-native';
 import MasonryList from '@react-native-seoul/masonry-list';
-import {dummyData} from '../../dummy';
-import icons from '../constants/icons';
-import {useNavigation} from '@react-navigation/native';
 
 const GMasonryList = props => {
   const {
@@ -64,6 +56,7 @@ const GMasonryList = props => {
         renderItem={renderItem}
         ListFooterComponent={ListFooterComponent}
         ListEmptyComponent={ListEmptyComponent}
+        
       />
     </View>
   );

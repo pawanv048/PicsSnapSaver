@@ -18,7 +18,6 @@ import {useNavigation} from '@react-navigation/native';
 import {BASE_URI} from '../services/api/API';
 import {sizes} from '../constants/theme';
 import GLoading from '../components/GLoading';
-import {Homecard} from '../components/Shimmers/Homecard';
 import {ThemeContext} from '../helper/ThemeContext';
 import {LinearGradientView} from '../components';
 
@@ -33,18 +32,18 @@ const Home = ({navigation}) => {
   // console.log(theme);
   const activeColor = colors[theme.mode];
 
-  const isInitialMount = useRef(true);
+  // const isInitialMount = useRef(true);
 
   // LOADING MORE PHOTOS
   React.useEffect(() => {
-    if (isInitialMount.current) {
-      ToastAndroid.show(
-        'Discover Beautiful Random Images',
-        100,
-        ToastAndroid.SHORT,
-      );
-      isInitialMount.current = false;
-    }
+    // if (isInitialMount.current) {
+    //   ToastAndroid.show(
+    //     'Discover Beautiful Random Images',
+    //     100,
+    //     ToastAndroid.SHORT,
+    //   );
+    //   isInitialMount.current = false;
+    // }
     setLoading(true);
     fetchMore();
   }, []);
@@ -78,19 +77,21 @@ const Home = ({navigation}) => {
           <GLoading size={80} />
         </View>
       ) : (
-        <GMasonryList
-          containerStyle={{
-            paddingHorizontal: 10,
-            paddingVertical: 40,
-            alignSelf: 'stretch',
-            paddingBottom: 10,
-            flexGrow: 1,
-          }}
-          data={data}
-          onEndReached={fetchMore}
-          renderItem={renderItem}
-          numColumns={2}
-        />
+        <View style={{flex: 1}}>
+          <GMasonryList
+            containerStyle={{
+              paddingHorizontal: 10,
+              paddingVertical: 40,
+              alignSelf: 'stretch',
+              paddingBottom: 10,
+              flexGrow: 1,
+            }}
+            data={data}
+            onEndReached={fetchMore}
+            renderItem={renderItem}
+            numColumns={2}
+          />
+        </View>
       )}
       <TouchableOpacity
         onPress={() => navigation.navigate('Profile')}
@@ -120,7 +121,10 @@ const Home = ({navigation}) => {
 
 export default Home;
 
-const MasonryCard = ({item, style}) => {
+
+
+
+const MasonryCard = ({item, style, index}) => {
   const navigation = useNavigation();
   const randomBool = useMemo(() => Math.random() < 0.5, []);
 
@@ -137,6 +141,7 @@ const MasonryCard = ({item, style}) => {
           source={{
             uri: BASE_URI + item,
             priority: FastImage.priority.normal,
+            cache: 'immutable'
           }}
           style={{
             height: randomBool ? 150 : 280,
@@ -149,3 +154,6 @@ const MasonryCard = ({item, style}) => {
     </TouchableOpacity>
   );
 };
+
+
+

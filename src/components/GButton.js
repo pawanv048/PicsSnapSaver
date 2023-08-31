@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 30,
     borderRadius: 20,
-    width: 120,
+    //width: 120,
     justifyContent: 'center',
     alignItems: 'center',
   },

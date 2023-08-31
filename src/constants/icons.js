@@ -10,6 +10,7 @@ const iGoogle = require('../assets/images/google.png')
 const iTerms = require('../assets/images/terms.png')
 const user = require('../assets/images/user.png')
 const iProfile = require('../assets/images/iProfile.png')
+const logo = require("../assets/images/logo.png")
 const icross = require('../assets/images/cross.png')
 const iSettings = require('../assets/images/iSettings.png')
 const iPrivacy = require('../assets/images/iPrivacy.png')
@@ -37,5 +38,6 @@ export default {
   iSettings,
   iPrivacy,
   ithemeswitch,
-  isystemtheme
+  isystemtheme,
+  logo
 }

@@ -20,6 +20,9 @@
 		56AB3718FCB34A12B01A297F /* Caveat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C39E46E392E94BED99DC1A30 /* Caveat-Regular.ttf */; };
 		DE1DD023D4F848EFBD1F26B8 /* Caveat-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 547F0976E0924BD083F77225 /* Caveat-SemiBold.ttf */; };
 		1DCA5B76ECF84849B5684E58 /* FjallaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40F3106AED0C44F6BC44FF60 /* FjallaOne-Regular.ttf */; };
+		E1158F8B6F8D4449BBCEC79D /* RobotoCondensed-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E709D8747702458CBBAF4BD3 /* RobotoCondensed-Bold.ttf */; };
+		DB3D9CF2713E4DBEB28BAF5F /* RobotoCondensed-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F04A90AE2F7C43A58D66AFBC /* RobotoCondensed-Light.ttf */; };
+		C9040CE6F6F7471DB224D3BC /* RobotoCondensed-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79B97ED51C04430CBCC74EB1 /* RobotoCondensed-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,9 @@
 		C39E46E392E94BED99DC1A30 /* Caveat-Regular.ttf */ = {isa = PBXFileReference; name = "Caveat-Regular.ttf"; path = "../src/assets/fonts/Caveat-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		547F0976E0924BD083F77225 /* Caveat-SemiBold.ttf */ = {isa = PBXFileReference; name = "Caveat-SemiBold.ttf"; path = "../src/assets/fonts/Caveat-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		40F3106AED0C44F6BC44FF60 /* FjallaOne-Regular.ttf */ = {isa = PBXFileReference; name = "FjallaOne-Regular.ttf"; path = "../src/assets/fonts/FjallaOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E709D8747702458CBBAF4BD3 /* RobotoCondensed-Bold.ttf */ = {isa = PBXFileReference; name = "RobotoCondensed-Bold.ttf"; path = "../src/assets/fonts/RobotoCondensed-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F04A90AE2F7C43A58D66AFBC /* RobotoCondensed-Light.ttf */ = {isa = PBXFileReference; name = "RobotoCondensed-Light.ttf"; path = "../src/assets/fonts/RobotoCondensed-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		79B97ED51C04430CBCC74EB1 /* RobotoCondensed-Regular.ttf */ = {isa = PBXFileReference; name = "RobotoCondensed-Regular.ttf"; path = "../src/assets/fonts/RobotoCondensed-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +133,9 @@
 				C39E46E392E94BED99DC1A30 /* Caveat-Regular.ttf */,
 				547F0976E0924BD083F77225 /* Caveat-SemiBold.ttf */,
 				40F3106AED0C44F6BC44FF60 /* FjallaOne-Regular.ttf */,
+				E709D8747702458CBBAF4BD3 /* RobotoCondensed-Bold.ttf */,
+				F04A90AE2F7C43A58D66AFBC /* RobotoCondensed-Light.ttf */,
+				79B97ED51C04430CBCC74EB1 /* RobotoCondensed-Regular.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -277,6 +286,9 @@
 				56AB3718FCB34A12B01A297F /* Caveat-Regular.ttf in Resources */,
 				DE1DD023D4F848EFBD1F26B8 /* Caveat-SemiBold.ttf in Resources */,
 				1DCA5B76ECF84849B5684E58 /* FjallaOne-Regular.ttf in Resources */,
+				E1158F8B6F8D4449BBCEC79D /* RobotoCondensed-Bold.ttf in Resources */,
+				DB3D9CF2713E4DBEB28BAF5F /* RobotoCondensed-Light.ttf in Resources */,
+				C9040CE6F6F7471DB224D3BC /* RobotoCondensed-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@ import {
   FlatList,
   StatusBar,
   ImageBackground,
+  ActivityIndicator
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
@@ -25,14 +26,18 @@ const PhotoCategories = () => {
   const [topics, setTopics] = useState([]);
   const {theme} = useContext(ThemeContext);
   const activeColor = colors[theme.mode];
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     const url = generateCategoriesUrl();
     const onSuccess = data => {
       setTopics(data);
+      setLoading(false); // Set loading to false after data is fetched
     };
     const onError = error => {
       console.error(error);
+      setLoading(false); 
     };
 
     apiCall({
@@ -50,6 +55,11 @@ const PhotoCategories = () => {
   // MAIN RENDER
   return (
     <LinearGradientView style={{flex: 1}}>
+      {loading ? (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <ActivityIndicator size={'small'} color='red'/>
+        </View>
+      ) : (
       <GMasonryList
         containerStyle={{paddingRight: 12}}
         data={topics}
@@ -60,6 +70,7 @@ const PhotoCategories = () => {
           paddingTop: sizes.radius * 3,
         }}
       />
+      )}
     </LinearGradientView>
   );
 };
