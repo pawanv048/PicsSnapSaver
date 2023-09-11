@@ -2,14 +2,16 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity, StatusBar} from 'react-native';
 import icons from '../constants/icons';
 import {LinearGradientView, TextButton} from '../components';
+
 import {COLORS, FONTS, SIZES} from '../constants/theme';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Welcome = ({navigation}) => {
   return (
-    <LinearGradientView
+    <LinearGradientView     
       style={{
         flex: 1,
-        // backgroundColor: COLORS.light,
+        // backgroundColor: COLORS.light,  
       }}>
       <StatusBar translucent backgroundColor="transparent" />
       {/* Logo & Title */}

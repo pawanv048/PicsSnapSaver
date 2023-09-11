@@ -209,7 +209,7 @@ const DetailPic = ({route}) => {
                 style={{
                   justifyContent: 'space-between',
                   flexDirection: 'row',
-                  paddingHorizontal: sizes.radius * 1.2,
+                  paddingHorizontal: sizes.radius,
                   marginVertical: sizes.radius,
                   position: 'absolute',
                   // backgroundColor: 'red',
@@ -221,7 +221,7 @@ const DetailPic = ({route}) => {
                     backgroundColor: colors.light,
                     width: 40,
                     height: 40,
-                    borderRadius: 20,
+                    borderRadius: 5,
                     justifyContent: 'center',
                     alignItems: 'center',
                     elevation: 10,

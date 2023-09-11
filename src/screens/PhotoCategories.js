@@ -20,6 +20,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import icons from '../constants/icons';
 import {ThemeContext} from '../helper/ThemeContext';
 import { LinearGradientView } from '../components';
+import GLoading from '../components/GLoading';
+
 
 
 const PhotoCategories = () => {
@@ -57,7 +59,8 @@ const PhotoCategories = () => {
     <LinearGradientView style={{flex: 1}}>
       {loading ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <ActivityIndicator size={'small'} color='red'/>
+          {/* <ActivityIndicator size={'large'} color='darkgrey'/> */}
+          <GLoading size={40}/>
         </View>
       ) : (
       <GMasonryList

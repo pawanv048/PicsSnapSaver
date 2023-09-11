@@ -1,4 +1,4 @@
-import React, {useState, useRef, useMemo, useContext} from 'react';
+import React, {useState, useRef, useMemo, useContext, useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {
   StyleSheet,
@@ -32,20 +32,12 @@ const Home = ({navigation}) => {
   // console.log(theme);
   const activeColor = colors[theme.mode];
 
-  // const isInitialMount = useRef(true);
-
   // LOADING MORE PHOTOS
-  React.useEffect(() => {
-    // if (isInitialMount.current) {
-    //   ToastAndroid.show(
-    //     'Discover Beautiful Random Images',
-    //     100,
-    //     ToastAndroid.SHORT,
-    //   );
-    //   isInitialMount.current = false;
-    // }
-    setLoading(true);
-    fetchMore();
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => {
+      fetchMore();
+    }, 2000);
   }, []);
 
   const fetchMore = () => {
@@ -74,7 +66,8 @@ const Home = ({navigation}) => {
       {/* Conditional rendering based on loading state */}
       {loader ? (
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <GLoading size={80} />
+         {/* <ActivityIndicator size={'large'} color='darkgrey'/> */}
+         <GLoading size={40}/>
         </View>
       ) : (
         <View style={{flex: 1}}>
@@ -121,9 +114,6 @@ const Home = ({navigation}) => {
 
 export default Home;
 
-
-
-
 const MasonryCard = ({item, style, index}) => {
   const navigation = useNavigation();
   const randomBool = useMemo(() => Math.random() < 0.5, []);
@@ -141,7 +131,7 @@ const MasonryCard = ({item, style, index}) => {
           source={{
             uri: BASE_URI + item,
             priority: FastImage.priority.normal,
-            cache: 'immutable'
+            cache: 'immutable',
           }}
           style={{
             height: randomBool ? 150 : 280,
@@ -154,6 +144,3 @@ const MasonryCard = ({item, style, index}) => {
     </TouchableOpacity>
   );
 };
-
-
-
