@@ -178,11 +178,12 @@ const DetailPic = ({route}) => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={ev => {
-          scrollToActiveIndex(
-            Math.floor(ev.nativeEvent.contentOffset.x / width),
-          );
-        }}
+        scrollEnabled={false}
+        // onMomentumScrollEnd={ev => {
+        //   scrollToActiveIndex(
+        //     Math.floor(ev.nativeEvent.contentOffset.x / width),
+        //   );
+        // }}
         renderItem={({item, index}) => {
           const nextItem = topics[index]; // Get the next item to preload
           return (

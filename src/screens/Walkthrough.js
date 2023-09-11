@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Animated, FlatList, Text, TouchableOpacity} from 'react-native';
+import {View, Animated, FlatList, Text, TouchableOpacity, StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { LinearGradientView, TextButton } from '../components';
 import Constants from '../constants/Constants';
@@ -87,6 +87,7 @@ const Walkthrough = ({navigation}) => {
         flex: 1,
         backgroundColor: COLORS.light,
       }}>
+        <StatusBar translucent backgroundColor="transparent" />
       <Animated.FlatList
         data={Constants.walkthrough}
         keyExtractor={item => item.id}

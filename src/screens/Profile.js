@@ -10,7 +10,7 @@ import {
   StatusBar,
   Alert,
   Linking,
-  Switch,
+  Switch
 } from 'react-native';
 import {signOutUser} from '../utils/authUtils';
 import LinearGradient from 'react-native-linear-gradient';
@@ -149,6 +149,13 @@ const Profile = ({navigation}) => {
           trackColor={{false: 'rgb(159,159,159)', true: '#2192FF'}}
           thumbColor={'#f4f3f4'}
         />
+
+        <CustomView
+          source={icons.rate}
+          text={AppLabel.rating}
+          onPress={() => Linking.openURL('https://play.google.com/store/apps/details?id=com.picssnapsaver')}
+        />
+
 
         {/* <CustomView
           source={icons.isystemtheme}

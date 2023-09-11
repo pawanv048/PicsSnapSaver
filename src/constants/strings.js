@@ -65,5 +65,5 @@ export const AppLabel = {
   darkmode: 'Dark Mode',
   privacy: 'Privacy & Policy',
   about: 'About',
-  
+  rating: 'Rate App'
 }
